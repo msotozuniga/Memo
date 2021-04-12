@@ -59,4 +59,5 @@ fly_down={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.968627, 0.956863, 0.772549, 1 )
 environment/default_environment="res://default_env.tres"
