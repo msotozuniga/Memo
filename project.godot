@@ -19,6 +19,10 @@ config/name="Memo"
 run/main_scene="res://scenes/l_i.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+shapes/collision/shape_color=Color( 0, 0.6, 0.701961, 0.501961 )
+
 [input]
 
 move_right={
@@ -59,5 +63,5 @@ fly_down={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.968627, 0.956863, 0.772549, 1 )
+environment/default_clear_color=Color( 0.819608, 0.419608, 0.592157, 1 )
 environment/default_environment="res://default_env.tres"

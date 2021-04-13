@@ -62,6 +62,7 @@ func _physics_process(_delta):
 		fly_mode = false
 		
 func parry():
+	$animation.play("parry_sprite")
 	print("parry")
 	pass
 

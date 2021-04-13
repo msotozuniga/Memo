@@ -4,15 +4,15 @@
 [ext_resource path="res://sprites/forest/1.png" type="Texture" id=2]
 [ext_resource path="res://sprites/forest/3.png" type="Texture" id=3]
 
+[sub_resource type="CameraTexture" id=1]
+
 [sub_resource type="CameraTexture" id=2]
 
-[sub_resource type="CameraTexture" id=3]
+[sub_resource type="ShaderMaterial" id=3]
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="CameraTexture" id=4]
 
 [sub_resource type="CameraTexture" id=5]
-
-[sub_resource type="CameraTexture" id=6]
 
 [node name="Camera2D" type="Camera2D"]
 current = true
@@ -21,13 +21,13 @@ current = true
 scale = Vector2( 4, 3.5 )
 z_index = -2
 texture = ExtResource( 3 )
-normal_map = SubResource( 2 )
+normal_map = SubResource( 1 )
 
 [node name="Sprite2" type="Sprite" parent="."]
 scale = Vector2( 4, 3.5 )
 z_index = -3
 texture = ExtResource( 1 )
-normal_map = SubResource( 3 )
+normal_map = SubResource( 2 )
 
 [node name="Sprite3" type="Sprite" parent="."]
 scale = Vector2( 4, 3.5 )
@@ -35,7 +35,7 @@ z_index = -6
 texture = ExtResource( 2 )
 
 [node name="Sprite4" type="Sprite" parent="."]
-material = SubResource( 4 )
+material = SubResource( 3 )
 use_parent_material = true
-texture = SubResource( 5 )
-normal_map = SubResource( 6 )
+texture = SubResource( 4 )
+normal_map = SubResource( 5 )

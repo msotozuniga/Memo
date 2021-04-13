@@ -1,10 +1,52 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprites/Diseño de Personaje-2.png" type="Texture" id=1]
+[ext_resource path="res://sprites/vfx/GameFXexport/SPRITESHEET_Files/IceCast_96x96.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.9411
 height = 41.4726
+
+[sub_resource type="Animation" id=3]
+resource_name = "parry_sprite"
+length = 0.31
+step = 0.015
+tracks/0/type = "value"
+tracks/0/path = NodePath("parry_body/parry_sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.015, 0.03, 0.045, 0.06, 0.075, 0.09, 0.105, 0.12, 0.135, 0.15, 0.165, 0.18, 0.195, 0.21, 0.225, 0.24, 0.255, 0.27, 0.285, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("parry_body/parry_sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.03, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("parry_body/parry_box:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.03, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 48.1913
@@ -12,14 +54,14 @@ radius = 48.1913
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 152.227, 79.8702 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -6.88776, -2.83163 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="shape" type="Sprite" parent="."]
 position = Vector2( -4, -2 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
@@ -27,17 +69,26 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="vuelo" type="Timer" parent="."]
+[node name="fly" type="Timer" parent="."]
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 1.05945, 1.05948 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="animation" type="AnimationPlayer" parent="."]
+anims/parry_sprite = SubResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -7.41626, -3.05176e-05 )
+[node name="parry_body" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="parry_box" type="CollisionShape2D" parent="parry_body"]
+position = Vector2( -7.41626, -2.11894 )
 shape = SubResource( 2 )
+disabled = true
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="parry_sprite" type="Sprite" parent="parry_body"]
+visible = false
+position = Vector2( -7.41626, -2.11894 )
+texture = ExtResource( 2 )
+hframes = 28
+frame = 7
