@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/mob_0.png" type="Texture" id=1]
+[ext_resource path="res://scripts/mob_0.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 36.522
+
+[node name="mob_0" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.09102, 2.74562 )
+scale = Vector2( 2.58963, 2.33528 )
+texture = ExtResource( 1 )
+flip_h = true
+hframes = 2
+frame = 1

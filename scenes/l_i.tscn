@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/player.gd" type="Script" id=2]
 [ext_resource path="res://sprites/scenery/tiles_3.png" type="Texture" id=3]
 [ext_resource path="res://sprites/scenery/tiles_2.png" type="Texture" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/mob_0.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 690.284, 10.0095 )
@@ -97,3 +98,6 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="mob_0" parent="." instance=ExtResource( 6 )]
+position = Vector2( 913.312, 237.842 )
