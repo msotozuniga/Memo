@@ -7,16 +7,17 @@ var gravity
 var timer
 var fly_mode
 var fly_charge
+var proyectile
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lineal_vel =Vector2()
 	speed = 500
 	gravity = 25
-	timer = get_node("vuelo")
+	proyectile = preload("res://scenes/fire_projectile.tscn")
+	timer = get_node("fly")
 	timer.set_one_shot(true)
 	timer.set_wait_time(1)
-	#timer.connect("timeout",self,"_fin_vuelo")
 	fly_mode = false
 	fly_charge = true
 	
@@ -36,6 +37,10 @@ func _physics_process(_delta):
 	# Parry
 	if Input.is_action_just_pressed("parry"):
 		parry()
+		
+	# Magic
+	if Input.is_action_just_pressed("magic"):
+		throwMagic()
 		
 	
 	# Vuelo
@@ -63,8 +68,14 @@ func _physics_process(_delta):
 		
 func parry():
 	$animation.play("parry_sprite")
-	print("parry")
 	pass
+	
+func throwMagic():
+	var b = proyectile.instance()
+	b.global_position = self.global_position
+	b.rotation = (get_global_mouse_position()-b.global_position).angle()
+	owner.add_child(b)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

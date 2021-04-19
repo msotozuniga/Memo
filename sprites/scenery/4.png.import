@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FireBall_3_64x64.png-47b79569ba360fad7215a93b39dd0ff0.stex"
+path="res://.import/4.png-7770c0dba28710570ff86040267011db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/vfx/GameFXexport/SPRITESHEET_Files/FireBall_3_64x64.png"
-dest_files=[ "res://.import/FireBall_3_64x64.png-47b79569ba360fad7215a93b39dd0ff0.stex" ]
+source_file="res://sprites/scenery/4.png"
+dest_files=[ "res://.import/4.png-7770c0dba28710570ff86040267011db.stex" ]
 
 [params]
 
