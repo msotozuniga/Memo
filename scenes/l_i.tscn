@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scripts/player.gd" type="Script" id=2]
 [ext_resource path="res://sprites/scenery/tiles_3.png" type="Texture" id=3]
 [ext_resource path="res://sprites/scenery/tiles_2.png" type="Texture" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
@@ -23,12 +22,12 @@ extents = Vector2( 18.9865, 281.537 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 68.0011, 328.07 )
-script = ExtResource( 2 )
 
 [node name="fondo" parent="Player" instance=ExtResource( 5 )]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 544.657, 611.252 )
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -0.68573, 2.97794 )
@@ -47,6 +46,7 @@ __meta__ = {
 }
 
 [node name="Level" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level"]
 position = Vector2( 92.4986, 366.631 )
@@ -65,6 +65,7 @@ __meta__ = {
 }
 
 [node name="lump" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="lump"]
 position = Vector2( 484.356, 405.312 )
@@ -83,6 +84,7 @@ __meta__ = {
 }
 
 [node name="L2" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="L2"]
 position = Vector2( 410.357, 136.225 )
@@ -101,3 +103,5 @@ __meta__ = {
 
 [node name="mob_0" parent="." instance=ExtResource( 6 )]
 position = Vector2( 913.312, 237.842 )
+collision_layer = 4
+collision_mask = 16
