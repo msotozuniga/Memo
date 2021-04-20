@@ -97,10 +97,11 @@ collision_mask = 0
 [node name="parry_box" type="CollisionShape2D" parent="parry_body"]
 position = Vector2( -5.03516, -3.70634 )
 shape = SubResource( 3 )
+disabled = true
 
 [node name="parry_sprite" type="Sprite" parent="parry_body"]
+visible = false
 position = Vector2( -5.43201, -3.70635 )
 scale = Vector2( 1.43819, 1.38032 )
 texture = ExtResource( 2 )
 hframes = 28
-frame = 9
