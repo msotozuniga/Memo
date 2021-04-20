@@ -6,6 +6,7 @@ extends RigidBody2D
 # var b = "text"
 onready var blocked=false
 onready var hits = 2
+onready var maxhits = 2
 onready var speed = 2000
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +18,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("parry") and hits<=0:
 		var unit_vector= (get_global_mouse_position()-position).normalized()
 		linear_velocity = unit_vector * speed
+		hits=maxhits
 	
 
 

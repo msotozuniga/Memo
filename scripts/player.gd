@@ -70,6 +70,10 @@ func _physics_process(_delta):
 		
 	
 	# Terminar vuelo 
+	if timer.is_stopped() or is_on_floor():
+		gravity = 25
+		fly_mode = false
+	
 	if Input.is_action_just_pressed("move_left") and facing_right:
 		$shape.scale.x=$shape.scale.x*-1
 		facing_right=false
