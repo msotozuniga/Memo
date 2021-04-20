@@ -19,6 +19,7 @@ func _physics_process(delta):
 		var unit_vector= (get_global_mouse_position()-position).normalized()
 		linear_velocity = unit_vector * speed
 		hits=maxhits
+		
 	
 
 
@@ -35,4 +36,6 @@ func _on_hitbox_player_entered(body):
 func _on_hitbox_parry_entered(area):
 	$hitbox/shape.disabled=true
 	hits-=1
+	if hits <=0:
+		$attack.stop(false)
 	
