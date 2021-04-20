@@ -8,12 +8,18 @@ var timer
 var fly_mode
 var fly_charge
 var proyectile
+var max_magic
+var magic_meter
+var health
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lineal_vel =Vector2()
 	speed = 500
 	gravity = 25
+	magic_meter=0
+	max_magic=100
+	health=100
 	proyectile = preload("res://scenes/fire_projectile.tscn")
 	timer = get_node("fly")
 	timer.set_one_shot(true)
@@ -71,12 +77,25 @@ func parry():
 	pass
 	
 func throwMagic():
-	var b = proyectile.instance()
-	b.global_position = self.global_position
-	b.rotation = (get_global_mouse_position()-b.global_position).angle()
-	owner.add_child(b)
+	if magic_meter==max_magic:
+		var b = proyectile.instance()
+		b.global_position = self.global_position
+		b.rotation = (get_global_mouse_position()-b.global_position).angle()
+		owner.add_child(b)
+		magic_meter=0
+	
+func receive_damage(damage):
+	health -= damage
+	print(health)
+	if health <1:
+		queue_free()
+		
+func increase_magic(amount):
+	magic_meter+=amount
+	if magic_meter>max_magic:
+		magic_meter = max_magic
+	print(magic_meter)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass

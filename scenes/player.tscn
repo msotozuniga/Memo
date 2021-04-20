@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://sprites/Diseño de Personaje-2.png" type="Texture" id=1]
 [ext_resource path="res://sprites/vfx/prt/parry_shield.png" type="Texture" id=2]
+[ext_resource path="res://scripts/player.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.9411
@@ -49,10 +50,13 @@ tracks/2/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 48.1913
+radius = 65.1857
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 152.227, 79.8702 )
+collision_layer = 2
+collision_mask = 9
+script = ExtResource( 3 )
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -6.88776, -2.83163 )
@@ -74,18 +78,19 @@ __meta__ = {
 [node name="animation" type="AnimationPlayer" parent="."]
 anims/parry_sprite = SubResource( 2 )
 
-[node name="parry_body" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+[node name="parry_body" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
 
 [node name="parry_box" type="CollisionShape2D" parent="parry_body"]
-position = Vector2( -7.41626, -2.11894 )
+position = Vector2( -5.03516, -3.70634 )
 shape = SubResource( 3 )
 disabled = true
 
 [node name="parry_sprite" type="Sprite" parent="parry_body"]
 visible = false
-position = Vector2( -7.41626, -2.11894 )
+position = Vector2( -5.43201, -3.70635 )
+scale = Vector2( 1.43819, 1.38032 )
 texture = ExtResource( 2 )
 hframes = 28
-frame = 7
+frame = 27
