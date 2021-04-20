@@ -35,5 +35,4 @@ func _on_hitbox_player_entered(body):
 func _on_hitbox_parry_entered(area):
 	$hitbox/shape.disabled=true
 	hits-=1
-	print("parry")
 	

@@ -9,11 +9,19 @@ var fly_mode
 var fly_charge
 var proyectile
 var max_magic
-var magic_meter
-var health
+var magic_meter setget set_mana
+var health setget set_health
 var facing_right
 
-# Called when the node enters the scene tree for the first time.
+
+func set_mana(value):
+	magic_meter = value
+	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value = magic_meter
+	
+func set_health(value):
+	health = value
+	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
+	
 func _ready():
 	lineal_vel =Vector2()
 	speed = 500
@@ -28,6 +36,8 @@ func _ready():
 	fly_mode = false
 	fly_charge = true
 	facing_right = true
+	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
+	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value=magic_meter
 	
 func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
@@ -91,19 +101,18 @@ func throwMagic():
 		b.global_position = self.global_position
 		b.rotation = (get_global_mouse_position()-b.global_position).angle()
 		owner.add_child(b)
-		magic_meter=0
+		set_mana(0)
 	
 func receive_damage(damage):
-	health -= damage
-	print("health :"+str(health))
+	self.set_health(health-damage)
 	if health <1:
 		queue_free()
 		
 func increase_magic(amount):
-	magic_meter+=amount
-	if magic_meter>max_magic:
-		magic_meter = max_magic
-	print("magic: "+ str(magic_meter))
+	var temp=magic_meter+amount
+	if temp>max_magic:
+		temp = max_magic
+	self.set_mana(temp)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
