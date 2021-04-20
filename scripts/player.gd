@@ -11,6 +11,7 @@ var proyectile
 var max_magic
 var magic_meter
 var health
+var facing_right
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +27,7 @@ func _ready():
 	timer.set_wait_time(1)
 	fly_mode = false
 	fly_charge = true
+	facing_right = true
 	
 func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
@@ -68,9 +70,12 @@ func _physics_process(_delta):
 		
 	
 	# Terminar vuelo 
-	if timer.is_stopped() or is_on_floor():
-		gravity = 25
-		fly_mode = false
+	if Input.is_action_just_pressed("move_left") and facing_right:
+		$shape.scale.x=$shape.scale.x*-1
+		facing_right=false
+	if Input.is_action_just_pressed("move_right") and !facing_right:
+		$shape.scale.x=$shape.scale.x*-1
+		facing_right=true
 		
 func parry():
 	$animation.play("parry_sprite")
@@ -86,7 +91,7 @@ func throwMagic():
 	
 func receive_damage(damage):
 	health -= damage
-	print(health)
+	print("health :"+str(health))
 	if health <1:
 		queue_free()
 		
@@ -94,7 +99,7 @@ func increase_magic(amount):
 	magic_meter+=amount
 	if magic_meter>max_magic:
 		magic_meter = max_magic
-	print(magic_meter)
+	print("magic: "+ str(magic_meter))
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/mob_1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/scenery/tiles_3.png" type="Texture" id=3]
 [ext_resource path="res://sprites/scenery/tiles_2.png" type="Texture" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
@@ -103,5 +104,7 @@ __meta__ = {
 
 [node name="mob_0" parent="." instance=ExtResource( 6 )]
 position = Vector2( 913.312, 237.842 )
-collision_layer = 4
 collision_mask = 16
+
+[node name="mob_1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 542.788, 521.13 )
