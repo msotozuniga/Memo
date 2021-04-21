@@ -30,7 +30,7 @@ tracks/0/keys = {
 radius = 52.8983
 
 [node name="mob" type="RigidBody2D"]
-collision_layer = 0
+collision_layer = 4
 script = ExtResource( 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
