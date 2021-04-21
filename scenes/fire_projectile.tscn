@@ -28,6 +28,8 @@ tracks/0/keys = {
 [node name="Area2D" type="Area2D"]
 rotation = -1.06291
 angular_damp = 0.0
+collision_layer = 16
+collision_mask = 4
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -43,3 +45,4 @@ hframes = 60
 
 [node name="flying" type="AnimationPlayer" parent="."]
 anims/moving = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_proyectile_enemy_entered"]

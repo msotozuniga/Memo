@@ -4,3 +4,8 @@ var speed = 1000
 func _physics_process(delta):
 	position += transform.x * speed * delta
 	$flying.play('moving')
+
+
+func _on_proyectile_enemy_entered(body):
+	body.queue_free()
+	queue_free()

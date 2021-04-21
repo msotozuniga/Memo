@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/mob_1.gd" type="Script" id=1]
 
@@ -26,6 +26,9 @@ tracks/0/keys = {
 "values": [ true, false, true, false, true ]
 }
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 52.8983
+
 [node name="mob" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource( 1 )
@@ -46,5 +49,22 @@ disabled = true
 
 [node name="attack" type="AnimationPlayer" parent="."]
 anims/a_pattern = SubResource( 3 )
+
+[node name="pro_box" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="pro_shape" type="CollisionShape2D" parent="pro_box"]
+shape = SubResource( 4 )
+disabled = true
+
+[node name="pro_box_wall" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="pro_shape" type="CollisionShape2D" parent="pro_box_wall"]
+shape = SubResource( 4 )
+disabled = true
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_parry_entered"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_player_entered"]
+[connection signal="body_entered" from="pro_box" to="." method="_on_pro_box_enemy_entered"]
+[connection signal="body_entered" from="pro_box_wall" to="." method="_on_pro_box_wall_wall_entered"]
