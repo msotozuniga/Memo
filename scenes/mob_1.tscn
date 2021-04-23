@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/mob_1.gd" type="Script" id=1]
+[ext_resource path="res://sprites/enemy.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 54.2664
@@ -37,6 +38,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.26135, -8.82942 )
+scale = Vector2( 1.89135, 1.62226 )
+texture = ExtResource( 2 )
+hframes = 5
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -64,6 +69,7 @@ collision_layer = 0
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box_wall"]
 shape = SubResource( 4 )
 disabled = true
+
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_parry_entered"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_player_entered"]
 [connection signal="body_entered" from="pro_box" to="." method="_on_pro_box_enemy_entered"]

@@ -18,7 +18,7 @@ texture = ExtResource( 1 )
 normal_map = SubResource( 1 )
 
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 8.73067, 55.559 )
-scale = Vector2( 7.18424, 4.04678 )
+position = Vector2( 5.55583, 43.6535 )
+scale = Vector2( 7.22833, 4.2388 )
 texture = ExtResource( 2 )
 normal_map = SubResource( 2 )
