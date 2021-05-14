@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://sprites/titulo.png" type="Texture" id=1]
+[ext_resource path="res://unused_for_the_time/titulo.png" type="Texture" id=1]
 [ext_resource path="res://fonts/menu_font.tres" type="DynamicFont" id=2]
 
 [node name="mmenu" type="MarginContainer"]
