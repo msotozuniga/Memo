@@ -7,6 +7,10 @@ var target
 var chase
 var throw_state
 
+onready var startX : float = position.x
+onready var targetX : float = position.x + 100
+onready var facingRight = false
+
 onready var blocked=false
 onready var hits = 2
 onready var maxhits = 2
@@ -26,8 +30,21 @@ func _ready():
 	
 	
 func _physics_process(delta):
+	fixFacing()
 	tree.tick(self,self.blackboard)
 		
+		
+func fixFacing():
+	if target != null:
+		var dir = target.position - self.position
+		if dir.x < 0:
+			self.scale.x = 1
+		else:
+			self.scale.x = -1
+		print(scale)
+			
+		
+	
 # Acciones
 func attack():
 	if not attacking:
@@ -46,9 +63,10 @@ func performDeath():
 	
 func wander():
 	return
-
+#
 func chase():
-	return
+	var direction = (target.position - position).normalized()
+	linear_velocity.x = direction.x * 200
 	
 func throw():
 	Engine.set_time_scale(0.1)

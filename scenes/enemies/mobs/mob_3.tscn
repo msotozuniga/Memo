@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/enemies/mob/mob_0.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 36.522
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 371.308
+
+[node name="mob_0" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.09102, 2.74562 )
+scale = Vector2( 2.58963, 2.33528 )
+texture = ExtResource( 1 )
+flip_h = true
+hframes = 2
+frame = 1
+
+[node name="aggro_zone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2147483650
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro_zone"]
+position = Vector2( -2, 0 )
+shape = SubResource( 2 )
+
+[node name="FireTimer" type="Timer" parent="."]

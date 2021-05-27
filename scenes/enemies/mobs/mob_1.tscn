@@ -46,6 +46,9 @@ extents = Vector2( 618.25, 48.393 )
 
 [node name="mob" type="RigidBody2D"]
 collision_layer = 4
+mode = 2
+mass = 2.04082
+gravity_scale = 9.8
 script = ExtResource( 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
