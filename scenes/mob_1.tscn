@@ -1,7 +1,19 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/enemies/mob/mob_1.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/mob/enemy.png" type="Texture" id=2]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=5]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=6]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=7]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/wait.gd" type="Script" id=8]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/search.gd" type="Script" id=9]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/attack.gd" type="Script" id=10]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/in_range.gd" type="Script" id=11]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/follow.gd" type="Script" id=12]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=13]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 54.2664
@@ -12,7 +24,6 @@ extents = Vector2( 135.105, 38.7189 )
 [sub_resource type="Animation" id=3]
 resource_name = "a_pattern"
 length = 1.63333
-loop = true
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("hitbox/shape:disabled")
@@ -29,6 +40,9 @@ tracks/0/keys = {
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 52.8983
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 618.25, 48.393 )
 
 [node name="mob" type="RigidBody2D"]
 collision_layer = 4
@@ -70,7 +84,72 @@ collision_layer = 0
 shape = SubResource( 4 )
 disabled = true
 
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="BehaviorSelector" type="Node" parent="BehaviorTree"]
+script = ExtResource( 3 )
+
+[node name="BehaviorSequence3" type="Node" parent="BehaviorTree/BehaviorSelector"]
+script = ExtResource( 5 )
+
+[node name="throwable" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence3"]
+script = ExtResource( 13 )
+
+[node name="throw" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence3"]
+script = ExtResource( 14 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSelector"]
+script = ExtResource( 5 )
+
+[node name="hit" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 6 )
+
+[node name="takeDamage" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 7 )
+
+[node name="BehaviorSequence2" type="Node" parent="BehaviorTree/BehaviorSelector"]
+script = ExtResource( 5 )
+
+[node name="search" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 9 )
+
+[node name="BehaviorSelector" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 3 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2/BehaviorSelector"]
+script = ExtResource( 5 )
+
+[node name="in_range" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 11 )
+
+[node name="follow" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 12 )
+
+[node name="attack" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2/BehaviorSelector"]
+script = ExtResource( 10 )
+
+[node name="wait" type="Node" parent="BehaviorTree/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="chaseBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="chase_shape" type="CollisionShape2D" parent="chaseBox"]
+shape = SubResource( 5 )
+
+[node name="ThrowTime" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 4.0
+
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_parry_entered"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_player_entered"]
 [connection signal="body_entered" from="pro_box" to="." method="_on_pro_box_enemy_entered"]
 [connection signal="body_entered" from="pro_box_wall" to="." method="_on_pro_box_wall_wall_entered"]
+[connection signal="body_entered" from="chaseBox" to="." method="_on_chaseBox_body_entered"]
+[connection signal="body_exited" from="chaseBox" to="." method="_on_chaseBox_body_exited"]
+[connection signal="timeout" from="ThrowTime" to="." method="slowTimeThrow"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

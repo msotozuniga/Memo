@@ -7,5 +7,5 @@ func _physics_process(delta):
 
 
 func _on_proyectile_enemy_entered(body):
-	body.queue_free()
+	body.was_hit=true
 	queue_free()

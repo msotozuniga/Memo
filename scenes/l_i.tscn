@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/mob_1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/scenery/tiles/tileset_4.png" type="Texture" id=3]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/mob_0.tscn" type="PackedScene" id=6]
 
@@ -139,3 +140,6 @@ tile_data = PoolIntArray( -393219, 4, 0, -393218, 4, 0, -393217, 4, 0, -458752, 
 
 [node name="mob" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2888.73, 328.631 )
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource( 4 )

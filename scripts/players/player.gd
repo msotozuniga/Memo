@@ -83,7 +83,16 @@ func _physics_process(_delta):
 	if timer.is_stopped() or is_on_floor():
 		gravity = 25
 		fly_mode = false
-	
+		
+		
+	# Carrera
+	if Input.is_action_just_pressed("run"):
+		lineal_vel.x=lineal_vel.x*1.5
+		speed = 600
+		
+	if Input.is_action_just_released("run"):
+		speed = 500
+			
 	if Input.is_action_just_pressed("move_left") and facing_right:
 		$shape.scale.x=$shape.scale.x*-1
 		facing_right=false

@@ -45,4 +45,5 @@ hframes = 60
 
 [node name="flying" type="AnimationPlayer" parent="."]
 anims/moving = SubResource( 2 )
+
 [connection signal="body_entered" from="." to="." method="_on_proyectile_enemy_entered"]
