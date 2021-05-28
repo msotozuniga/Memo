@@ -9,7 +9,7 @@ var throw_state
 
 onready var startX : float = position.x
 onready var targetX : float = position.x + 100
-onready var facingRight = false
+onready var facing = false
 
 onready var blocked=false
 onready var hits = 2
@@ -36,12 +36,16 @@ func _physics_process(delta):
 		
 func fixFacing():
 	if target != null:
+		var old_facing = facing
 		var dir = target.position - self.position
 		if dir.x < 0:
-			self.scale.x = 1
+			facing = 1
 		else:
-			self.scale.x = -1
-		print(scale)
+			facing = -1
+		
+		if facing != old_facing:
+			$Sprite.scale.x *= -1
+			$hitbox.scale.x *= -1
 			
 		
 	

@@ -15,8 +15,8 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=13]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 54.2664
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 27.2497, 49.393 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 135.105, 38.7189 )
@@ -52,7 +52,7 @@ gravity_scale = 9.8
 script = ExtResource( 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1.26135, -8.82942 )
