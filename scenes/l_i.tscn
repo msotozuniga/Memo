@@ -126,7 +126,7 @@ position = Vector2( 68.0011, 328.07 )
 position = Vector2( -0.702606, -1.00522 )
 
 [node name="mob_1" parent="." instance=ExtResource( 6 )]
-position = Vector2( 3191.31, 143.842 )
+position = Vector2( 1208, 126.891 )
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = 1
@@ -143,4 +143,4 @@ position = Vector2( 2888.73, 328.631 )
 script = ExtResource( 4 )
 
 [node name="mob_3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 968.713, -38.6812 )
+position = Vector2( 2263.38, -61.9894 )

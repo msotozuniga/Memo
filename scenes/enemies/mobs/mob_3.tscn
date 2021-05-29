@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://sprites/enemies/mob/mob_0.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_3/mob_3.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=8]
 [ext_resource path="res://scripts/enemies/mob/behavior/search.gd" type="Script" id=9]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=10]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=11]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 36.522
@@ -64,6 +66,15 @@ script = ExtResource( 10 )
 
 [node name="throw" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence3"]
 script = ExtResource( 8 )
+
+[node name="BehaviorSequence2" type="Node" parent="BehaviorTree/BehaviorSelector"]
+script = ExtResource( 7 )
+
+[node name="hit" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 12 )
+
+[node name="takeDamage" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 11 )
 
 [node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSelector"]
 script = ExtResource( 7 )

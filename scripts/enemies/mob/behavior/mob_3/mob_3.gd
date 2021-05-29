@@ -8,6 +8,7 @@ onready var target = null
 onready var chase = false
 onready var throw_state = false
 onready var speed = 2000
+onready var was_hit = false
 onready var timer = $ThrowTime
 
 onready var tree = $BehaviorTree
@@ -35,7 +36,13 @@ func throw():
 		throw_state = false
 		
 		
-
+func receive_damage():
+	performDeath()
+	self.queue_free()
+	
+	
+func performDeath():
+	return
 
 func wander():
 	pass
