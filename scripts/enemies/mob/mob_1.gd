@@ -9,8 +9,9 @@ var throw_state
 
 onready var startX : float = position.x
 onready var targetX : float = position.x + 100
-onready var facing = false
+onready var facing = 1
 
+onready var attack_range = 300
 onready var blocked=false
 onready var hits = 2
 onready var maxhits = 2
