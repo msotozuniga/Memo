@@ -83,7 +83,6 @@ func throw():
 		linear_velocity = unit_vector * speed
 		hits=maxhits
 		slowTimeThrow()
-		throw_state = false
 	
 
 # Señales
