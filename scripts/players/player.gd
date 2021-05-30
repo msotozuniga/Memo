@@ -14,6 +14,10 @@ var health setget set_health
 var facing_right
 
 
+onready var runCooldown = false
+onready var runTimer = $runTimer
+
+
 func set_mana(value):
 	magic_meter = value
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value = magic_meter
@@ -48,9 +52,20 @@ func _physics_process(_delta):
 	var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
 	
+	# Carrera
+	if Input.is_action_just_pressed("run") and not runCooldown:
+		runCooldown = true
+		runTimer.start()
+		lineal_vel.x=lineal_vel.x*4
+		speed = 700
+		
+	if Input.is_action_just_released("run"):
+		
+		speed = 500
+	
 	# Salto
 	if Input.is_action_just_pressed("jump") and in_floor:
-		lineal_vel.y= -speed*1.6
+		lineal_vel.y= -500*1.6
 	
 	# Parry
 	if Input.is_action_just_pressed("parry"):
@@ -84,15 +99,6 @@ func _physics_process(_delta):
 		gravity = 25
 		fly_mode = false
 		
-		
-	# Carrera
-	if Input.is_action_just_pressed("run"):
-		lineal_vel.x=lineal_vel.x*1.5
-		speed = 600
-		
-	if Input.is_action_just_released("run"):
-		speed = 500
-			
 	if Input.is_action_just_pressed("move_left") and facing_right:
 		$shape.scale.x=$shape.scale.x*-1
 		facing_right=false
@@ -126,3 +132,7 @@ func increase_magic(amount):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
+
+
+func _on_runTimer_timeout():
+	runCooldown = false

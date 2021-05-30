@@ -45,5 +45,6 @@ frame = 59
 
 [node name="flying" type="AnimationPlayer" parent="."]
 anims/moving = SubResource( 2 )
+
 [connection signal="area_entered" from="." to="." method="_on_parry"]
 [connection signal="body_entered" from="." to="." method="_on_impact"]

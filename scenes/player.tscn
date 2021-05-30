@@ -171,3 +171,7 @@ rect_min_size = Vector2( 100, 14 )
 custom_styles/fg = SubResource( 7 )
 value = 20.0
 percent_visible = false
+
+[node name="runTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="runTimer" to="." method="_on_runTimer_timeout"]
