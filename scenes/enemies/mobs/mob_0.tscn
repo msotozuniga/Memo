@@ -15,7 +15,7 @@
 radius = 36.522
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 242.074
+radius = 397.257
 
 [node name="mob_0" type="RigidBody2D"]
 collision_layer = 4

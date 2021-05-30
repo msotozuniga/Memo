@@ -14,6 +14,10 @@ var health setget set_health
 var facing_right
 
 
+onready var runCooldown = false
+onready var runTimer = $runTimer
+
+
 func set_mana(value):
 	magic_meter = value
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value = magic_meter
@@ -50,13 +54,14 @@ func _physics_process(_delta):
 	print(lineal_vel)
 	
 	# Carrera
-	if Input.is_action_just_pressed("run"):
-		print("runnig")
+	if Input.is_action_just_pressed("run") and not runCooldown:
+		runCooldown = true
+		runTimer.start()
 		lineal_vel.x=lineal_vel.x*4
 		speed = 700
 		
 	if Input.is_action_just_released("run"):
-		print("walking")
+		
 		speed = 500
 	
 	# Salto
@@ -128,3 +133,7 @@ func increase_magic(amount):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
+
+
+func _on_runTimer_timeout():
+	runCooldown = false
