@@ -7,6 +7,8 @@ var target
 var chase
 var throw_state
 
+export var unit_vector_multiplier = 1
+
 var attack_numer
 
 var rotation_direction
@@ -34,21 +36,43 @@ func _ready():
 	chase = false
 	target = null
 	throw_state = false
-	attack_numer = randi()%2
+	attack_numer = 0
 	rotation_direction = 0.02
 	rotate_timer.start()
 	
 	
 	
+	
 func _physics_process(delta):
+	fixFacing()
+	
 	tree.tick(self,self.blackboard)
 			
 # Acciones
+func fixFacing():
+	if target != null:
+		var old_facing = facing
+		var dir = target.position - self.position
+		if dir.x < 0:
+			facing = 1
+		else:
+			facing = -1
+		
+		if facing != old_facing:
+			$Sprite.scale.x *= -1
+			$hitbox.scale.x *= -1
+			
 func attack_melee():
-	pass
+	print("melee")
+	$attack.play("a_pattern")
+	return
+	
+func attack_animation():
+	var dir = (target.position-position).normalized()
+	self.position = self.position + dir*unit_vector_multiplier
 	
 func attack_range():
-	attacTimer.start()
+	print("range")
 	var bullet = proyectile.instance()
 	bullet.global_position = self.global_position
 	owner.add_child(bullet)
@@ -57,7 +81,9 @@ func attack_range():
 
 func attack():
 	if not attacking:
+		attack_numer = randi()%2
 		attacking=true
+		attacTimer.start()
 		if attack_numer == 0:
 			attack_melee()
 		else:
@@ -75,8 +101,9 @@ func circle_around():
 	var point =target.position
 	var current_angle = (position-point).angle()
 	var new_angle = current_angle+rotation_direction
-	
 	self.position = point + Vector2(cos(new_angle),sin(new_angle))*300
+	if attacking:
+		attack_animation()
 	look_at(point)
 	
 func wander():

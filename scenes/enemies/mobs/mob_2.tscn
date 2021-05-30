@@ -19,24 +19,22 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 31.4337
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 135.105, 38.7189 )
+[sub_resource type="CircleShape2D" id=6]
+radius = 39.9287
 
 [sub_resource type="Animation" id=3]
 resource_name = "a_pattern"
-length = 1.63333
+length = 1.68334
 step = 0.0166667
-tracks/0/type = "value"
-tracks/0/path = NodePath("hitbox/shape:disabled")
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:unit_vector_multiplier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.216667, 0.383333, 1.28333, 1.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true, false, true ]
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -50, -0.25, 0, 0.25, 0, 300, -0.0354591, -162.723, 0.0256223, -184.323, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.333334, 0.833335, 1.66667 )
 }
 
 [sub_resource type="CircleShape2D" id=4]
@@ -52,9 +50,9 @@ mode = 2
 mass = 2.04082
 gravity_scale = 0.0
 script = ExtResource( 1 )
+unit_vector_multiplier = 0
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -12 )
 shape = SubResource( 1 )
 
@@ -65,20 +63,18 @@ texture = ExtResource( 2 )
 hframes = 5
 
 [node name="hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 66
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
-position = Vector2( -123.678, 2.37839 )
-shape = SubResource( 2 )
+position = Vector2( -0.678001, -11.6216 )
+shape = SubResource( 6 )
 disabled = true
 
 [node name="attack" type="AnimationPlayer" parent="."]
 anims/a_pattern = SubResource( 3 )
 
 [node name="pro_box" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -87,7 +83,6 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="pro_box_wall" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box_wall"]
