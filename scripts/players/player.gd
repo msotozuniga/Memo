@@ -27,6 +27,7 @@ func set_health(value):
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	
 func _ready():
+	$animation.play("idle")
 	lineal_vel =Vector2()
 	speed = 500
 	gravity = 25
