@@ -7,7 +7,7 @@ var target
 var chase
 var throw_state
 
-
+var attack_numer
 
 onready var startX : float = position.x
 onready var targetX : float = position.x + 100
@@ -22,6 +22,7 @@ onready var tree = $BehaviorTree
 onready var timer = $ThrowTime
 onready var attacTimer=$AttackTimer
 onready var blackboard = get_tree().get_root().get_node("Main/Blackboard")
+onready var proyectile = preload("res://scenes/enemy_projectile.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,7 @@ func _ready():
 	chase = false
 	target = null
 	throw_state = false
+	attack_numer = randi()%2
 	
 	
 func _physics_process(delta):
@@ -53,9 +55,19 @@ func fixFacing():
 		
 	
 # Acciones
+func attack_melee():
+	pass
+	
+func attack_range():
+	pass
+
 func attack():
 	if not attacking:
 		attacking=true
+		if attack_numer == 0:
+			attack_melee()
+		else:
+			attack_range()
 		hits=maxhits
 		attacTimer.start()
 		$attack.play("a_pattern")
