@@ -8,7 +8,7 @@ var attacking
 var was_hit
 
 onready var startX : float = position.x
-onready var targetX : float = position.x + 100
+onready var targetX : float = position.x + 200
 onready var facingRight = true
 onready var tree = $BehaviorTree
 
@@ -23,7 +23,8 @@ func _ready():
 	was_hit = false
 	$FireTimer.connect("timeout",self,"fireTimerEnd")
 	
-func _process(delta):
+func _physics_process(delta):
+	wander()
 	tree.tick(self,self.blackboard)
 	
 	
@@ -31,7 +32,6 @@ func fireTimerEnd():
 	attacking = false
 	
 func attack():
-	linear_velocity.x=0
 	if not attacking:
 		attacking=true
 		$FireTimer.start()
