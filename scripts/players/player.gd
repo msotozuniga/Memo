@@ -51,7 +51,6 @@ func _physics_process(_delta):
 	# Movimiento lateral 
 	var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
-	print(lineal_vel)
 	
 	# Carrera
 	if Input.is_action_just_pressed("run") and not runCooldown:

@@ -9,17 +9,20 @@ var throw_state
 
 var attack_numer
 
-onready var startX : float = position.x
-onready var targetX : float = position.x + 100
+var rotation_direction
+
 onready var facing = 1
 
-onready var attack_range = 300
+onready var attack_range_low = 400
+onready var attack_range_high = 500
+
 onready var blocked=false
 onready var hits = 2
 onready var maxhits = 2
 onready var speed = 2000
 onready var tree = $BehaviorTree
 onready var timer = $ThrowTime
+onready var rotate_timer = $RotationTimer
 onready var attacTimer=$AttackTimer
 onready var blackboard = get_tree().get_root().get_node("Main/Blackboard")
 onready var proyectile = preload("res://scenes/enemy_projectile.tscn")
@@ -32,34 +35,25 @@ func _ready():
 	target = null
 	throw_state = false
 	attack_numer = randi()%2
+	rotation_direction = 0.02
+	rotate_timer.start()
+	
 	
 	
 func _physics_process(delta):
-	fixFacing()
 	tree.tick(self,self.blackboard)
-		
-		
-func fixFacing():
-	if target != null:
-		var old_facing = facing
-		var dir = target.position - self.position
-		if dir.x < 0:
-			facing = 1
-		else:
-			facing = -1
-		
-		if facing != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
 			
-		
-	
 # Acciones
 func attack_melee():
 	pass
 	
 func attack_range():
-	pass
+	attacTimer.start()
+	var bullet = proyectile.instance()
+	bullet.global_position = self.global_position
+	owner.add_child(bullet)
+	var player_pos= target.global_position
+	bullet.rotation = (player_pos-bullet.global_position).angle()
 
 func attack():
 	if not attacking:
@@ -68,9 +62,6 @@ func attack():
 			attack_melee()
 		else:
 			attack_range()
-		hits=maxhits
-		attacTimer.start()
-		$attack.play("a_pattern")
 		
 func receive_damage():
 	performDeath()
@@ -80,12 +71,16 @@ func receive_damage():
 func performDeath():
 	return
 	
+func circle_around():
+	var point =target.position
+	var current_angle = (position-point).angle()
+	var new_angle = current_angle+rotation_direction
+	
+	self.position = point + Vector2(cos(new_angle),sin(new_angle))*300
+	look_at(point)
+	
 func wander():
 	return
-#
-func chase():
-	var direction = (target.position - position).normalized()
-	linear_velocity.x = direction.x * 200
 	
 func throw():
 	Engine.set_time_scale(0.1)
@@ -97,6 +92,9 @@ func throw():
 		linear_velocity = unit_vector * speed
 		hits=maxhits
 		slowTimeThrow()
+		
+func correct_range(move_away):
+	return
 	
 
 # Señales
@@ -110,12 +108,8 @@ func _on_hitbox_player_entered(body):
 
 func _on_hitbox_parry_entered(area):
 	$hitbox/shape.disabled=true
-	hits-=1
-	if hits <=0:
-		$attack.stop(false)
-		timer.start()
-		attacking=false
-		throw_state=true
+	attacking=false
+	throw_state=true
 	
 func _on_pro_box_enemy_entered(body):
 	body.queue_free()
@@ -130,11 +124,12 @@ func _on_chaseBox_body_entered(body):
 	target = body
 	chase=true
 
-
-func _on_chaseBox_body_exited(body):
-	target = null
-	chase = false
-
-
 func _on_AttackTimer_timeout():
 	attacking=false# Replace with function body.
+
+
+func _on_RotationTimer_timeout():
+	if randi() % 2:
+		rotation_direction = -0.02
+	else:
+		rotation_direction = 0.02
