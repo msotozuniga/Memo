@@ -19,8 +19,6 @@ onready var attack_range_low = 400
 onready var attack_range_high = 500
 
 onready var blocked=false
-onready var hits = 2
-onready var maxhits = 2
 onready var speed = 2000
 onready var tree = $BehaviorTree
 onready var timer = $ThrowTime
@@ -107,6 +105,7 @@ func circle_around():
 	look_at(point)
 	
 func wander():
+	
 	return
 	
 func throw():
@@ -117,11 +116,10 @@ func throw():
 		$pro_box/pro_shape.disabled = false
 		$pro_box_wall/pro_shape.disabled = false
 		linear_velocity = unit_vector * speed
-		hits=maxhits
+		target = null
+		chase = false
 		slowTimeThrow()
-		
-func correct_range(move_away):
-	return
+	
 	
 
 # Señales
