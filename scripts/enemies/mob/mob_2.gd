@@ -8,6 +8,7 @@ var chase
 var throw_state
 
 export var unit_vector_multiplier = 1
+var lvel = Vector2()
 
 var attack_numer
 
@@ -17,6 +18,7 @@ onready var facing = 1
 
 onready var attack_range_low = 400
 onready var attack_range_high = 500
+onready var wander_target = null
 
 onready var blocked=false
 onready var speed = 2000
@@ -104,10 +106,11 @@ func circle_around():
 		attack_animation()
 	look_at(point)
 	
+
+
 func wander():
-	
 	return
-	
+		
 func throw():
 	Engine.set_time_scale(0.1)
 	if Input.is_action_just_pressed("parry"):
