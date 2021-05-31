@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://sprites/enemies/mob/mob_0.png" type="Texture" id=1]
+[ext_resource path="res://sprites/enemies/mob/kamikaze-idlle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/mob/mob_3.gd" type="Script" id=2]
 [ext_resource path="res://scripts/enemies/mob/behavior/wait.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
@@ -38,12 +38,12 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -1.09102, 2.74562 )
-scale = Vector2( 2.58963, 2.33528 )
+position = Vector2( 1.39467, -2.92061 )
+scale = Vector2( 0.203698, 0.20308 )
 texture = ExtResource( 1 )
 flip_h = true
-hframes = 2
-frame = 1
+hframes = 4
+frame = 3
 
 [node name="aggro_zone" type="Area2D" parent="."]
 visible = false
