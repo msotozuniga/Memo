@@ -55,8 +55,8 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -1.26135, -8.82942 )
-scale = Vector2( 1.89135, 1.62226 )
+position = Vector2( -0.370468, 1.86139 )
+scale = Vector2( 0.227151, 0.189695 )
 texture = ExtResource( 2 )
 hframes = 5
 
@@ -136,6 +136,7 @@ script = ExtResource( 10 )
 script = ExtResource( 8 )
 
 [node name="chaseBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
