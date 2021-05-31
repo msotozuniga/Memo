@@ -18,6 +18,10 @@ config/name="Memo"
 run/main_scene="res://scenes/l_i.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+BgZone1="*res://scenes/Bg_zone_1.tscn"
+
 [debug]
 
 shapes/collision/shape_color=Color( 0, 0.6, 0.701961, 0.501961 )
