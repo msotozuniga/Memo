@@ -102,9 +102,11 @@ func _physics_process(_delta):
 		
 	if Input.is_action_just_pressed("move_left") and facing_right:
 		$shape.scale.x=$shape.scale.x*-1
+		$shape.position.x = $shape.position.x-16.150
 		facing_right=false
 	if Input.is_action_just_pressed("move_right") and !facing_right:
 		$shape.scale.x=$shape.scale.x*-1
+		$shape.position.x = $shape.position.x+16.150
 		facing_right=true
 		
 func parry():
