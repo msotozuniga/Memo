@@ -73,7 +73,7 @@ func attack_range():
 	print("range")
 	var bullet = proyectile.instance()
 	bullet.global_position = self.global_position
-	owner.add_child(bullet)
+	get_parent().add_child(bullet)
 	var player_pos= target.global_position
 	bullet.rotation = (player_pos-bullet.global_position).angle()
 
@@ -137,7 +137,7 @@ func _on_hitbox_parry_entered(area):
 	throw_state=true
 	
 func _on_pro_box_enemy_entered(body):
-	body.queue_free()
+	body.receive_damage()
 	queue_free()
 
 

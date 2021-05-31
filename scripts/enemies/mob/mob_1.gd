@@ -86,6 +86,7 @@ func throw():
 		hits=maxhits
 		slowTimeThrow()
 	
+	
 
 # Señales
 func slowTimeThrow():
@@ -106,7 +107,7 @@ func _on_hitbox_parry_entered(area):
 		throw_state=true
 	
 func _on_pro_box_enemy_entered(body):
-	body.queue_free()
+	body.receive_damage()
 	queue_free()
 
 

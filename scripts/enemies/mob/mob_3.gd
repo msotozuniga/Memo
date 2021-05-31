@@ -72,7 +72,7 @@ func _on_hitbox_body_entered(body):
 
 
 func _on_pro_box_body_entered(body):
-	body.queue_free()
+	body.receive_damage()
 	queue_free()
 
 
