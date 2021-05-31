@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/enemies/mob/mob_2.gd" type="Script" id=1]
-[ext_resource path="res://sprites/enemies/mob/enemy.png" type="Texture" id=2]
+[ext_resource path="res://sprites/enemies/mob/enemy-4-attack.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=5]
@@ -16,11 +16,11 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_2/circle_around.gd" type="Script" id=15]
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=1]
 radius = 31.4337
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 39.9287
+[sub_resource type="CircleShape2D" id=2]
+radius = 39.6328
 
 [sub_resource type="Animation" id=3]
 resource_name = "a_pattern"
@@ -37,13 +37,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.333334, 0.833335, 1.66667 )
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "idle"
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 radius = 31.5907
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=6]
 radius = 300.0
 
 [node name="mob" type="RigidBody2D"]
@@ -55,42 +55,40 @@ gravity_scale = 0.0
 script = ExtResource( 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -12 )
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -3.04312, -2.59319 )
-scale = Vector2( 0.159443, 0.150495 )
+position = Vector2( -3.32374, -5.96058 )
+scale = Vector2( 0.227913, 0.217843 )
 texture = ExtResource( 2 )
-hframes = 5
+hframes = 4
 
 [node name="hitbox" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 66
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 position = Vector2( -0.678001, -11.6216 )
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="attack" type="AnimationPlayer" parent="."]
 anims/a_pattern = SubResource( 3 )
-anims/idle = SubResource( 9 )
+anims/idle = SubResource( 4 )
 
 [node name="pro_box" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
 
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="pro_box_wall" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box_wall"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 disabled = true
 
 [node name="BehaviorTree" type="Node" parent="."]
@@ -149,7 +147,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="chase_shape" type="CollisionShape2D" parent="chaseBox"]
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="ThrowTime" type="Timer" parent="."]
 wait_time = 0.3
