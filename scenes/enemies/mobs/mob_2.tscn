@@ -17,7 +17,7 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_2/circle_around.gd" type="Script" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 31.4337
+radius = 36.1589
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 39.6328
@@ -41,7 +41,7 @@ tracks/0/keys = {
 resource_name = "idle"
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 31.5907
+radius = 33.3669
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 300.0
@@ -77,19 +77,27 @@ anims/a_pattern = SubResource( 3 )
 anims/idle = SubResource( 4 )
 
 [node name="pro_box" type="Area2D" parent="."]
+position = Vector2( 0.561249, -11.7858 )
 collision_layer = 0
 collision_mask = 4
 
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box"]
 shape = SubResource( 5 )
 disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="pro_box_wall" type="Area2D" parent="."]
+position = Vector2( 0.561218, -10.6634 )
 collision_layer = 0
 
 [node name="pro_shape" type="CollisionShape2D" parent="pro_box_wall"]
 shape = SubResource( 5 )
 disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BehaviorTree" type="Node" parent="."]
 script = ExtResource( 4 )
