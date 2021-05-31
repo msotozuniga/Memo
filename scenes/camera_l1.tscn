@@ -10,6 +10,7 @@
 [node name="Camera2D" type="Camera2D"]
 show_behind_parent = true
 current = true
+zoom = Vector2( 1.5, 1.5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 7.14333, -87.3069 )

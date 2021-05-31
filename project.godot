@@ -24,7 +24,7 @@ shapes/collision/shape_color=Color( 0, 0.6, 0.701961, 0.501961 )
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-behavior-tree-plugin/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [global]
 
