@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/boss start animation.png-493107e7f203c978fed364573213bc9a.stex"
+path="res://.import/boss.png-b326908caffe0ff8e4653724a75a8f1a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/enemies/mob/boss start animation.png"
-dest_files=[ "res://.import/boss start animation.png-493107e7f203c978fed364573213bc9a.stex" ]
+source_file="res://sprites/enemies/bosses/boss.png"
+dest_files=[ "res://.import/boss.png-b326908caffe0ff8e4653724a75a8f1a.stex" ]
 
 [params]
 

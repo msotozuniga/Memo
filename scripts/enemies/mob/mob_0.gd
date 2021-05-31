@@ -37,7 +37,7 @@ func attack():
 		$FireTimer.start()
 		var bullet = proyectile.instance()
 		bullet.global_position = self.global_position
-		owner.add_child(bullet)
+		get_parent().add_child(bullet)
 		var player_pos= player.global_position
 		bullet.rotation = (player_pos-bullet.global_position).angle()
 
