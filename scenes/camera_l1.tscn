@@ -13,8 +13,8 @@ current = true
 zoom = Vector2( 1.5, 1.5 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 7.14333, -87.3069 )
-scale = Vector2( 8.10609, 3.2885 )
+position = Vector2( 12.8003, -290.954 )
+scale = Vector2( 8.10609, 5.78694 )
 texture = ExtResource( 1 )
 normal_map = SubResource( 1 )
 

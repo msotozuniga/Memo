@@ -13,6 +13,8 @@ var magic_meter setget set_mana
 var health setget set_health
 var facing_right
 
+export var is_parrying: bool
+
 
 onready var runCooldown = false
 onready var runTimer = $runTimer
@@ -116,8 +118,8 @@ func parry():
 func throwMagic():
 	if magic_meter==max_magic:
 		var b = proyectile.instance()
-		b.global_position = self.global_position
-		b.rotation = (get_global_mouse_position()-b.global_position).angle()
+		b.transform = self.transform
+		b.rotation = (get_global_mouse_position()-self.global_position).angle()
 		owner.add_child(b)
 		set_mana(0)
 	
@@ -125,6 +127,12 @@ func receive_damage(damage):
 	self.set_health(health-damage)
 	if health <1:
 		queue_free()
+		
+func receive_hit(damage):
+	if !is_parrying:
+		receive_damage(damage)
+	else:
+		print("play animation")
 		
 func increase_magic(amount):
 	var temp=magic_meter+amount

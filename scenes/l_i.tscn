@@ -1,13 +1,13 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/enemies/boss_1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/mobs/mob_1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/scenery/tiles/tileset_4.png" type="Texture" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/enemies/mobs/mob_2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemies/mobs/mob_0.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/enemies/mobs/mob_3.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/enemies/mobs/mob_1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/mobs/mob_2.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -747,11 +747,15 @@ points = PoolVector2Array( 64, 192, 0, 192, 0, 0, 64, 0 )
 [node name="Main" type="Node2D"]
 position = Vector2( -11169.1, -2424.05 )
 
+[node name="mob_0" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1437.59, 1105.28 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 102, -49.4302 )
 
 [node name="fondo" parent="Player" instance=ExtResource( 5 )]
-position = Vector2( 482.278, -166.615 )
+visible = false
+position = Vector2( -20.0364, -0.217285 )
 scale = Vector2( 1.5, 1.5 )
 z_index = -2
 
@@ -767,60 +771,11 @@ tile_data = PoolIntArray( -589658, 37, 0, -524122, 37, 0, -458586, 37, 0, -39305
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource( 4 )
 
-[node name="mob_0" parent="." instance=ExtResource( 6 )]
-position = Vector2( 6333.62, -363.639 )
+[node name="mob_1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2038.41, 1613.37 )
 
-[node name="mob_1" parent="." instance=ExtResource( 8 )]
-position = Vector2( 7360.18, 1630.78 )
+[node name="mob" parent="." instance=ExtResource( 8 )]
+position = Vector2( 699.248, -116.697 )
 
 [node name="mob_3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 10328, 1448.69 )
-
-[node name="boss_1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 17964.6, 1450.79 )
-z_index = 1
-
-[node name="mob_2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2020.1, 1551.58 )
-
-[node name="mob_4" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2925.2, 1562.89 )
-
-[node name="mob_5" parent="." instance=ExtResource( 8 )]
-position = Vector2( 7428.06, -269.928 )
-
-[node name="mob_6" parent="." instance=ExtResource( 8 )]
-position = Vector2( 8989.35, -292.555 )
-
-[node name="mob_7" parent="." instance=ExtResource( 8 )]
-position = Vector2( 9894.45, -258.614 )
-
-[node name="mob_8" parent="." instance=ExtResource( 7 )]
-position = Vector2( 10755.1, 1480.73 )
-
-[node name="mob_9" parent="." instance=ExtResource( 7 )]
-position = Vector2( 8256.29, 1224.44 )
-
-[node name="mob_10" parent="." instance=ExtResource( 7 )]
-position = Vector2( 10103.7, 1438.02 )
-
-[node name="mob_11" parent="." instance=ExtResource( 7 )]
-position = Vector2( 10498.8, 1395.3 )
-
-[node name="mob_12" parent="." instance=ExtResource( 7 )]
-position = Vector2( 11066.3, 1455.33 )
-
-[node name="mob_13" parent="." instance=ExtResource( 7 )]
-position = Vector2( 7370.1, -873.427 )
-
-[node name="mob_14" parent="." instance=ExtResource( 7 )]
-position = Vector2( 5798.65, 473.527 )
-
-[node name="mob_15" parent="." instance=ExtResource( 7 )]
-position = Vector2( 3957.81, 168.218 )
-
-[node name="mob_16" parent="." instance=ExtResource( 7 )]
-position = Vector2( 5143.13, -532.199 )
-
-[node name="mob_17" parent="." instance=ExtResource( 7 )]
-position = Vector2( 4433.74, -181.991 )
+position = Vector2( 972.281, 699.227 )
