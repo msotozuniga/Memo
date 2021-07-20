@@ -3,6 +3,9 @@ extends RigidBody2D
 onready var types_vars = get_node("/root/Types")
 onready var time_manage = get_node("/root/EngineTime")
 
+
+
+
 var throw_timer 
 
 const speed = 2000
@@ -27,8 +30,9 @@ var is_in_chase
 var is_in_throw_state
 var is_in_attack_range
 var is_wandering
-export var is_facing_right : int
 var is_stunned
+var is_flying
+export var is_facing_right : int
 
 # Stats setters
 func set_health(new_health):
@@ -61,6 +65,8 @@ func performDeath():
 var is_timer_running = false
 
 func throw_start_timestop():
+	throw_timer = get_tree().create_timer(0.3)
+	throw_timer.connect("timeout",self,"throw_stop_timestop")
 	time_manage.slow_time_pace()
 	if !is_timer_running:
 		is_timer_running=true
@@ -86,13 +92,13 @@ func _on_chaseBox_body_exited(body):
 	is_in_chase = false
 	
 func _on_pro_box_enemy_entered(body):
-	is_in_throw_state = false
+	is_flying  = false
 	if body != self:
 		body.receive_damage(50, types_vars.NEUTRAL)
 		self.receive_damage(50,types_vars.NEUTRAL)
 
 func _on_pro_box_wall_wall_entered(body):
-	is_in_throw_state = false
+	is_flying = false
 	self.receive_damage(50,types_vars.NEUTRAL)
 	
 func _on_hitbox_parry_entered(parry_area):
@@ -127,6 +133,9 @@ func _ready():
 		blackboard.set("enemies",1)
 	else:
 		blackboard.set("enemies", enemies_number+1)
+	self.contact_monitor = true
+	self.contacts_reported = 2
+	self.is_in_throw_state = false
 	
 		
 func throw():
@@ -134,6 +143,7 @@ func throw():
 	linear_velocity = unit_vector * speed
 	parry_counter=parry_max
 	is_in_chase = false
+	is_flying = true
 	
 	
 	
