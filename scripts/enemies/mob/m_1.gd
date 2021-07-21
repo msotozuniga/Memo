@@ -70,12 +70,10 @@ func chase():
 	var direction = (target.global_position - self.global_position).normalized()
 	linear_velocity.x = direction.x * 200
 	
-func throw():
+func throw(val):
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		$pro_box/pro_shape.disabled = false
-		$pro_box_wall/pro_shape.disabled = false
-		.throw()
+		.throw(40)
 		throw_stop_timestop()
 		
 	

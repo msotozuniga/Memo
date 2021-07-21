@@ -97,9 +97,19 @@ func _on_pro_box_enemy_entered(body):
 		body.receive_damage(50, types_vars.NEUTRAL)
 		self.receive_damage(50,types_vars.NEUTRAL)
 
+
 func _on_pro_box_wall_wall_entered(body):
 	is_flying = false
 	self.receive_damage(50,types_vars.NEUTRAL)
+	
+func _on_mob_body_entered(body):
+	var layer = body.get_collision_layer()
+	if is_flying:
+		if layer == 1:
+			self._on_pro_box_wall_wall_entered(body)
+		if layer == 4:
+			self._on_pro_box_enemy_entered(body)
+	return
 	
 func _on_hitbox_parry_entered(parry_area):
 	parry_counter-=1
@@ -138,12 +148,29 @@ func _ready():
 	self.is_in_throw_state = false
 	
 		
-func throw():
-	var unit_vector= (get_global_mouse_position()-self.global_position).normalized()
-	linear_velocity = unit_vector * speed
-	parry_counter=parry_max
+func throw(val):
 	is_in_chase = false
 	is_flying = true
+	var smashed_against_wall = false
+	var unit_vector= (get_global_mouse_position()-self.global_position).normalized()
+	var space = get_world_2d().direct_space_state
+	var line_of_sight_obstacles = space.intersect_ray(global_position, get_global_mouse_position(), [self], 1)
+	if !line_of_sight_obstacles.empty():
+		var object_position = line_of_sight_obstacles.position
+		var radio = (global_position - object_position).abs()
+		var temp = 0
+		if radio.x >= radio.y:
+			temp = radio.x
+		else:
+			temp = radio.y
+		if temp < val:
+			smashed_against_wall = true
+	if smashed_against_wall:
+		self._on_pro_box_wall_wall_entered(self)
+	else:
+		linear_velocity = unit_vector * speed
+		parry_counter=parry_max
+	
 	
 	
 	

@@ -94,12 +94,10 @@ func circle_around():
 func wander():
 	return
 		
-func throw():
+func throw(val):
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		$pro_box/pro_shape.disabled = false
-		$pro_box_wall/pro_shape.disabled = false
-		.throw()
+		.throw(40)
 		throw_stop_timestop()
 		
 	
@@ -119,3 +117,13 @@ func _on_RotationTimer_timeout():
 		rotation_direction = -0.02
 	else:
 		rotation_direction = 0.02
+		
+func _on_mob_body_entered(body):
+	._on_mob_body_entered(body)
+	var layer = body.get_collision_layer()
+	if !is_flying:
+		if layer == 1:
+			rotation_direction = rotation_direction * -1
+	return
+
+

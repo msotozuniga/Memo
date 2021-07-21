@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/enemies/mob/m_2.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/mob/enemy-4-attack.png" type="Texture" id=2]
@@ -65,9 +65,6 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 33.3669
-
-[sub_resource type="CircleShape2D" id=6]
 radius = 300.0
 
 [node name="mob_2" type="Node2D"]
@@ -75,7 +72,7 @@ radius = 300.0
 [node name="mob" type="RigidBody2D" parent="."]
 position = Vector2( -199.459, 0 )
 collision_layer = 4
-collision_mask = 0
+collision_mask = 5
 mode = 2
 mass = 2.04082
 gravity_scale = 0.0
@@ -103,29 +100,6 @@ shape = SubResource( 2 )
 [node name="attack" type="AnimationPlayer" parent="mob"]
 anims/a_pattern = SubResource( 3 )
 anims/wander = SubResource( 4 )
-
-[node name="pro_box" type="Area2D" parent="mob"]
-position = Vector2( 0.561249, -11.7858 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="pro_shape" type="CollisionShape2D" parent="mob/pro_box"]
-shape = SubResource( 5 )
-disabled = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="pro_box_wall" type="Area2D" parent="mob"]
-position = Vector2( 0.561218, -10.6634 )
-collision_layer = 0
-
-[node name="pro_shape" type="CollisionShape2D" parent="mob/pro_box_wall"]
-shape = SubResource( 5 )
-disabled = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="BehaviorTree" type="Node" parent="mob"]
 script = ExtResource( 4 )
@@ -183,7 +157,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="chase_shape" type="CollisionShape2D" parent="mob/chaseBox"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="AttackTimer" type="Timer" parent="mob"]
 wait_time = 4.0
@@ -192,10 +166,9 @@ wait_time = 4.0
 wait_time = 2.0
 autostart = true
 
+[connection signal="body_entered" from="mob" to="mob" method="_on_mob_body_entered"]
 [connection signal="area_entered" from="mob/hitbox" to="mob" method="_on_hitbox_parry_entered"]
 [connection signal="body_entered" from="mob/hitbox" to="mob" method="_on_hitbox_player_entered"]
-[connection signal="body_entered" from="mob/pro_box" to="mob" method="_on_pro_box_enemy_entered"]
-[connection signal="body_entered" from="mob/pro_box_wall" to="mob" method="_on_pro_box_wall_wall_entered"]
 [connection signal="body_entered" from="mob/chaseBox" to="mob" method="_on_chaseBox_body_entered"]
 [connection signal="timeout" from="mob/AttackTimer" to="mob" method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="mob/RotationTimer" to="mob" method="_on_RotationTimer_timeout"]

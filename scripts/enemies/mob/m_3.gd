@@ -21,12 +21,10 @@ func _physics_process(delta):
 	tree.tick(self,self.blackboard)
 	
 
-func throw():
+func throw(val):
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		$pro_box/shape.disabled = false
-		$pro_box_wall/shape.disabled = false
-		.throw()
+		.throw(40)
 		throw_stop_timestop()
 		
 		
@@ -59,5 +57,4 @@ func _on_hitbox_player_entered(body):
 	var it_hit = ._on_hitbox_player_entered(body)
 	if it_hit:
 		self.receive_damage(self.hp,types_vars.NEUTRAL)
-
 

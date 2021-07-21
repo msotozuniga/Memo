@@ -131,18 +131,13 @@ func receive_damage(damage):
 func receive_hit(damage):
 	if !is_parrying:
 		receive_damage(damage)
-	else:
-		print("play animation")
+	
 		
 func increase_magic(amount):
 	var temp=magic_meter+amount
 	if temp>max_magic:
 		temp = max_magic
 	self.set_mana(temp)
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
 
 
 func _on_runTimer_timeout():

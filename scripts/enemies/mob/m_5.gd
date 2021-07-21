@@ -8,8 +8,8 @@ onready var att_speed = 1500
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hp = 50
-	hp_max = 50
+	hp = 60
+	hp_max = 60
 	parry_counter = 3
 	parry_max = 3
 	type = types_vars.EARTH
@@ -20,7 +20,6 @@ func _ready():
 	
 func _physics_process(delta):
 	fixFacing()
-	print(is_in_throw_state)
 	tree.tick(self,self.blackboard)
 		
 		
@@ -70,15 +69,16 @@ func chase():
 	var direction = (target.global_position - self.global_position).normalized()
 	linear_velocity.x = direction.x * 300
 	
-func throw():
+func throw(val):
+	var sheep = $hurtbox.shape.radius
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		.throw()
+		.throw(val+50)
 		throw_stop_timestop()
 		
 		
 	
-
+# TODO agregar lineofsight para que solo vaya por el jugador ssi puede verlo
 
 func _on_hitbox_parry_entered(area):
 	var parried = ._on_hitbox_parry_entered(area)
@@ -86,13 +86,4 @@ func _on_hitbox_parry_entered(area):
 	
 
 
-func _on_mob_body_entered(body):
-	
-	var layer = body.get_collision_layer()
-	if is_flying:
-		if layer == 1:
-			self._on_pro_box_wall_wall_entered(body)
-		if layer == 4:
-			self._on_pro_box_enemy_entered(body)
-	return
-	
+

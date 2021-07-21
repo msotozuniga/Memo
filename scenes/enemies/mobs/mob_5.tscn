@@ -16,7 +16,7 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 46.9115
+radius = 47.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 48.1671
