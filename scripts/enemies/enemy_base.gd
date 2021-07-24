@@ -144,7 +144,7 @@ func _ready():
 	else:
 		blackboard.set("enemies", enemies_number+1)
 	self.contact_monitor = true
-	self.contacts_reported = 2
+	self.contacts_reported = 1
 	self.is_in_throw_state = false
 	
 		

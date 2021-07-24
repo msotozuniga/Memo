@@ -3,16 +3,16 @@ extends "res://scripts/enemies/enemy_base.gd"
 onready var tree = $BehaviorTree
 
 func _ready():	
-	hp = 20
-	hp_max = 20
+	hp = 40
+	hp_max = 40
 	parry_counter = 1
 	parry_max = 1
-	type = types_vars.ICE
+	type = types_vars.FIRE
 	dmg = 10
 	
 	is_facing_right = 1
 	
-	projectiles.append(preload("res://scenes/enemy_projectile.tscn"))
+	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
 	
 func _physics_process(delta):
 	tree.tick(self, blackboard)
@@ -32,6 +32,7 @@ func attack():
 
 func wander():
 	$animations.play("wander")
+	return
 	
 func perform_damage():
 	.perform_damage()

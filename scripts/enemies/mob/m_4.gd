@@ -7,12 +7,12 @@ func _ready():
 	hp_max = 50
 	parry_counter = 1
 	parry_max = 1
-	type = types_vars.EARTH
+	type = types_vars.FIRE
 	dmg = 20
 	
 	is_facing_right = 1
 	
-	projectiles.append(preload("res://scenes/enemy_projectile.tscn"))
+	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
 	
 func _physics_process(delta):
 	tree.tick(self, blackboard)

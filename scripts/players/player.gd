@@ -9,6 +9,7 @@ var fly_mode
 var fly_charge
 var proyectile
 var max_magic
+var max_hp
 var magic_meter setget set_mana
 var health setget set_health
 var facing_right
@@ -25,6 +26,8 @@ func set_mana(value):
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value = magic_meter
 	
 func set_health(value):
+	if value > max_hp:
+		value = max_hp
 	health = value
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	
@@ -35,6 +38,7 @@ func _ready():
 	gravity = 25
 	magic_meter=0
 	max_magic=100
+	max_hp = 100
 	health=100
 	proyectile = preload("res://scenes/fire_projectile.tscn")
 	timer = get_node("fly")
@@ -132,7 +136,9 @@ func receive_hit(damage):
 	if !is_parrying:
 		receive_damage(damage)
 	
-		
+func signal_parry():
+	return
+	
 func increase_magic(amount):
 	var temp=magic_meter+amount
 	if temp>max_magic:

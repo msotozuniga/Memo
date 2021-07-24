@@ -29,7 +29,7 @@ func _ready():
 	attack_numer = 0
 	rotation_direction = 0.02
 	rotate_timer.start()
-	projectiles.append(preload("res://scenes/enemy_projectile.tscn"))
+	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
 	is_facing_right = -1
 	
 	
