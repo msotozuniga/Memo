@@ -113,5 +113,6 @@ run={
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0.819608, 0.419608, 0.592157, 1 )
 environment/default_environment="res://default_env.tres"
