@@ -7,7 +7,7 @@ var gravity
 var timer
 var fly_mode
 var fly_charge
-var proyectile
+var magics = []
 var max_magic
 var max_hp
 var magic_meter setget set_mana
@@ -44,7 +44,9 @@ func _ready():
 	max_magic=100
 	max_hp = 100
 	health=100
-	proyectile = preload("res://scenes/fire_projectile.tscn")
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
 	timer = get_node("fly")
 	timer.set_one_shot(true)
 	timer.set_wait_time(1)
@@ -82,7 +84,7 @@ func _physics_process(_delta):
 		parry()
 		
 	# Magic
-	if Input.is_action_just_pressed("magic"):
+	if Input.is_action_just_pressed("magic") and (has_ice or has_fire or has_electro):
 		throwMagic()
 		
 	
@@ -124,7 +126,7 @@ func parry():
 	
 func throwMagic():
 	if magic_meter==max_magic:
-		var b = proyectile.instance()
+		var b = magics[0].instance()
 		b.transform = self.transform
 		b.rotation = (get_global_mouse_position()-self.global_position).angle()
 		owner.add_child(b)

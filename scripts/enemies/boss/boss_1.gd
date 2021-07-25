@@ -17,8 +17,8 @@ var activated = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hp = 500
-	hp_max = 500
+	hp = 50
+	hp_max = 50
 	enemies.append(mob_1)
 	enemies.append(mob_2)
 	type = types_vars.ICE
@@ -69,7 +69,10 @@ func perform_damage():
 	.performDeath()
 	
 func performDeath():
-	
+	var pu_load = preload("res://scenes/p_related/fire_up.tscn")
+	var pu = pu_load.instance()
+	pu.transform = self.transform
+	get_parent().add_child(pu)
 	return
 
 
