@@ -6,6 +6,7 @@ onready var time_manage = get_node("/root/EngineTime")
 
 
 
+
 var throw_timer 
 
 const speed = 2000
@@ -55,6 +56,7 @@ func receive_damage(dmg, mode):
 		blackboard.set("enemies",number-1)
 		throw_stop_timestop()
 		self.queue_free()
+	is_hit = true
 	
 func performDeath():
 	is_hit = false
@@ -96,6 +98,7 @@ func _on_pro_box_enemy_entered(body):
 	if body != self:
 		body.receive_damage(50, types_vars.NEUTRAL)
 		self.receive_damage(50,types_vars.NEUTRAL)
+		
 
 
 func _on_pro_box_wall_wall_entered(body):

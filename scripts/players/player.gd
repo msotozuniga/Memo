@@ -14,6 +14,10 @@ var magic_meter setget set_mana
 var health setget set_health
 var facing_right
 
+var has_fire = false
+var has_electro = false
+var has_ice = false
+
 export var is_parrying: bool
 
 
@@ -54,13 +58,12 @@ func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
 	lineal_vel.y += gravity
 	var in_floor= is_on_floor()
-	
 	# Movimiento lateral 
 	var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
 	
 	# Carrera
-	if Input.is_action_just_pressed("run") and not runCooldown:
+	if Input.is_action_just_pressed("run") and not runCooldown and has_fire:
 		runCooldown = true
 		runTimer.start()
 		lineal_vel.x=lineal_vel.x*4
@@ -88,7 +91,7 @@ func _physics_process(_delta):
 		fly_charge=true
 	
 	# Activar vuelo
-	if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge:
+	if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge and has_electro:
 		timer.start(0.5)
 		gravity = 0
 		lineal_vel.y=0
