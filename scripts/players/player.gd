@@ -14,9 +14,9 @@ var magic_meter setget set_mana
 var health setget set_health
 var facing_right
 
-var has_fire = false
+var has_fire = true
 var has_electro = false
-var has_ice = false
+var has_ice = true
 
 export var is_parrying: bool
 

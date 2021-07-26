@@ -22,9 +22,10 @@ func _ready():
 	enemies.append(mob_1)
 	enemies.append(mob_2)
 	type = types_vars.ICE
-	dmg = 0
+	dmg = 20
 	mode = RigidBody2D.MODE_STATIC
 	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
+	projectiles.append(preload("res://scenes/enemies/enemy_parry_projectile.tscn"))
 	
 func _physics_process(delta):
 	tree.tick(self, blackboard)
@@ -56,8 +57,6 @@ func attack():
 	bullet.rotation = (player_pos-bullet.global_position).angle()
 	
 func activate():
-	print("activate")
-	$animation.play("startup")
 	$spawnTimer.start()
 	$FireTimer.start()
 	$Sprite.frame = 4
@@ -66,12 +65,12 @@ func activate():
 	
 func perform_damage():
 	$animation.play("perf_damage")
-	.performDeath()
+	.perform_damage()
 	
 func performDeath():
 	var pu_load = preload("res://scenes/p_related/fire_up.tscn")
 	var pu = pu_load.instance()
-	pu.transform = self.transform
+	pu.tglobal_position = self.global_position
 	get_parent().add_child(pu)
 	return
 
@@ -83,4 +82,9 @@ func _on_spawnTimer_timeout():
 func _on_activation_trigger_body_entered(body):
 	if !activated:
 		target = body
+		$animation.play("startup")
+
+
+func _on_animation_finished(anim_name):
+	if anim_name == "startup":
 		activate()

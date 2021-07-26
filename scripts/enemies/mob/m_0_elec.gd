@@ -25,9 +25,9 @@ func attack():
 	var bullet = projectiles[0].instance()
 	bullet.dmg = self.dmg
 	bullet.transform = self.transform
+	bullet.target = target
 	get_parent().add_child(bullet)
 	var player_pos= target.global_position
-	bullet.rotation = (player_pos-bullet.global_position).angle()
 
 
 func wander():

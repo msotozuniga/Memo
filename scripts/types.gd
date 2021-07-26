@@ -1,4 +1,4 @@
 extends Node
 
 
-enum {ICE, FIRE, EARTH, NEUTRAL}
+enum {ICE, FIRE, ELEC, NEUTRAL}
