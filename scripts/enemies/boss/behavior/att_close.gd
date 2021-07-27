@@ -1,8 +1,6 @@
 extends "res://addons/godot-behavior-tree-plugin/action.gd"
 
 
-
 func tick(tick: Tick) -> int:
-	tick.actor.throw(0)
-	return ERR_BUSY
-	
+	tick.actor.attack_push()
+	return OK

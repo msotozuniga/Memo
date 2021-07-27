@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://sprites/enemies/mob/enemy.png" type="Texture" id=1]
-[ext_resource path="res://scripts/enemies/mob/m_0_elec.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/mob/m_6.gd" type="Script" id=2]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/in_range.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=5]
@@ -11,41 +11,19 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=9]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=10]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 36.522
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 54.5785, 82.205 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 397.257
+radius = 1549.69
 
-[sub_resource type="Animation" id=3]
-resource_name = "wander"
-length = 10.0
-loop = true
-step = 0.0166667
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( -1, -0.25, 0, 0.39, 58.5, 400, -1.73, -12.5, 1.7, -15.5, -400, -1.49, -1, 1.01, -12.5, 0, -0.28, -39.5, 0.25, 0 ),
-"times": PoolRealArray( 0, 2.5, 7.497, 10 )
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:is_facing_right")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 2.5, 7.514 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 50, 50 )
 
-[node name="mob_0" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 50, 50 )
+
+[node name="mob_6" type="Node2D"]
 position = Vector2( 4.75684, 6.10352e-05 )
 
 [node name="body" type="RigidBody2D" parent="."]
@@ -55,10 +33,11 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+[node name="hurtbox" type="CollisionShape2D" parent="body"]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="body"]
+visible = false
 position = Vector2( -0.0314927, 0.626678 )
 scale = Vector2( -0.212, 0.208 )
 texture = ExtResource( 1 )
@@ -70,7 +49,7 @@ frame = 1
 collision_layer = 0
 collision_mask = 2147483650
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="body/aggro_zone"]
+[node name="shape" type="CollisionShape2D" parent="body/aggro_zone"]
 position = Vector2( 1.37842, 4.75677 )
 shape = SubResource( 2 )
 
@@ -103,8 +82,17 @@ script = ExtResource( 7 )
 
 [node name="FireTimer" type="Timer" parent="body"]
 
-[node name="animations" type="AnimationPlayer" parent="body"]
-anims/wander = SubResource( 3 )
+[node name="spawner_l" type="Area2D" parent="body"]
+
+[node name="shape" type="CollisionShape2D" parent="body/spawner_l"]
+position = Vector2( -108.065, -2.11893 )
+shape = SubResource( 3 )
+
+[node name="spawner_r" type="Area2D" parent="body"]
+
+[node name="shape" type="CollisionShape2D" parent="body/spawner_r"]
+position = Vector2( 108.065, 2.11893 )
+shape = SubResource( 4 )
 
 [connection signal="body_entered" from="body/aggro_zone" to="body" method="_on_aggro_zone_body_entered"]
 [connection signal="body_exited" from="body/aggro_zone" to="body" method="_on_aggro_zone_body_exited"]
