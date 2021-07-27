@@ -22,7 +22,7 @@ var dmg
 var projectiles = []
 
 # Enemy behavior
-var target
+var target : KinematicBody2D
 var blackboard
 
 var is_hit

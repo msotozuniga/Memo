@@ -124,6 +124,9 @@ func parry():
 	$animation.play("parry_sprite")
 	pass
 	
+func freeze():
+	pass
+	
 func throwMagic():
 	if magic_meter==max_magic:
 		var b = magics[0].instance()

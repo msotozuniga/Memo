@@ -253,6 +253,7 @@ position = Vector2( 1.111, -2.63 )
 scale = Vector2( 0.176, 0.183 )
 texture = ExtResource( 1 )
 hframes = 4
+frame = 2
 
 [node name="fly" type="Timer" parent="."]
 
