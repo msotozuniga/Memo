@@ -52,14 +52,14 @@ func receive_damage(dmg, mode):
 	self.change_health(-1*dmg)
 	if hp <=0:
 		performDeath()
-		var number = blackboard.get("enemies")
-		blackboard.set("enemies",number-1)
-		throw_stop_timestop()
-		self.queue_free()
 	is_hit = true
 	
 func performDeath():
 	is_hit = false
+	var number = blackboard.get("enemies")
+	blackboard.set("enemies",number-1)
+	throw_stop_timestop()
+	self.queue_free()
 	return
 
 # Time management
@@ -137,6 +137,7 @@ func attack():
 	
 func perform_damage():
 	is_hit = false
+	return hp > 0
 
 # Base configurations and functions
 func _ready():
@@ -149,6 +150,20 @@ func _ready():
 	self.contact_monitor = true
 	self.contacts_reported = 1
 	self.is_in_throw_state = false
+	
+func fixFacing():
+	var old_facing = is_facing_right 
+	var dir = 0
+	if target != null:
+		dir = (target.global_position - self.global_position).x
+	else:
+		dir = linear_velocity.x
+	if dir < 0:
+		is_facing_right = -1
+	elif dir > 0:
+		is_facing_right = 1
+	return is_facing_right != old_facing
+			
 	
 		
 func throw(val):

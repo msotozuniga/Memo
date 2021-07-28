@@ -16,8 +16,8 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 [ext_resource path="res://scripts/enemies/mob/behavior/is_flying.gd" type="Script" id=15]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30.1825, 30.9505 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 29.3176
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 135.105, 38.7189 )
@@ -172,7 +172,6 @@ wait_time = 4.0
 anims/wander = SubResource( 4 )
 
 [node name="attackRange" type="Area2D" parent="mob"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

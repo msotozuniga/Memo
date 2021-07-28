@@ -12,7 +12,7 @@ func _ready():
 	parry_max = 2
 	type = types_vars.ICE
 	dmg = 10
-	
+	mode = RigidBody2D.MODE_CHARACTER
 	is_facing_right = -1
 	
 	

@@ -6,6 +6,7 @@
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://scripts/enemies/boss/behavior/is_active.gd" type="Script" id=5]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=6]
+[ext_resource path="res://sprites/enemies/enemies_perf_damage.tres" type="Animation" id=7]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=8]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/attack.gd" type="Script" id=9]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=10]
@@ -14,22 +15,6 @@
 extents = Vector2( 120.699, 47.6881 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "perf_damage"
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=3]
 length = 0.15
 step = 0.0166667
 tracks/0/type = "value"
@@ -81,13 +66,13 @@ tracks/3/keys = {
 "values": [ ExtResource( 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 782.951, 287.417 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 138.484, 287.417 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=5]
 radius = 42.2058
 
 [node name="boss_1" type="RigidBody2D"]
@@ -101,6 +86,7 @@ position = Vector2( -0.00012207, -155.824 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 8.5, 8.5, 8.5, 1 )
 position = Vector2( 2.18146, -0.869141 )
 scale = Vector2( -1.0637, 0.990752 )
 texture = ExtResource( 1 )
@@ -111,8 +97,8 @@ hframes = 5
 wait_time = 10.0
 
 [node name="animation" type="AnimationPlayer" parent="."]
-anims/perf_damage = SubResource( 2 )
-anims/startup = SubResource( 3 )
+anims/perf_damage = ExtResource( 7 )
+anims/startup = SubResource( 2 )
 
 [node name="spawn_area" type="Area2D" parent="."]
 collision_layer = 0
@@ -120,7 +106,7 @@ collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="spawn_area"]
 position = Vector2( -973.9, -77.912 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="BehaviorTree" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -152,7 +138,7 @@ collision_mask = 2
 
 [node name="shape" type="CollisionShape2D" parent="activation_trigger"]
 position = Vector2( -371.672, -77.7437 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="FireTimer" type="Timer" parent="."]
 
@@ -160,7 +146,7 @@ shape = SubResource( 5 )
 
 [node name="shape" type="CollisionShape2D" parent="projectile_spawn"]
 position = Vector2( -152.735, -155.564 )
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawnTimer_timeout"]
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_finished"]
