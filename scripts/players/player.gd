@@ -135,7 +135,7 @@ func throwMagic():
 func receive_damage(damage):
 	self.set_health(health-damage)
 	if health <1:
-		queue_free()
+		get_tree().reload_current_scene()
 		
 func receive_hit(damage):
 	if !is_parrying:

@@ -2,24 +2,23 @@
 
 [ext_resource path="res://sprites/scenery/background/skyline-b.png" type="Texture" id=1]
 [ext_resource path="res://sprites/scenery/background/buildings-bg.png" type="Texture" id=2]
+[ext_resource path="res://scenes/camera_l1.gd" type="Script" id=3]
 
 [sub_resource type="CameraTexture" id=1]
-
-[sub_resource type="CameraTexture" id=2]
 
 [node name="Camera2D" type="Camera2D"]
 show_behind_parent = true
 current = true
 zoom = Vector2( 1.6, 1.6 )
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 12.8003, -290.954 )
-scale = Vector2( 8.10609, 5.78694 )
+position = Vector2( 6.79883, -4.9088 )
+scale = Vector2( 12.8095, 4.04559 )
 texture = ExtResource( 1 )
 normal_map = SubResource( 1 )
 
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 5.55583, 43.6535 )
-scale = Vector2( 7.22833, 4.2388 )
+position = Vector2( 9.35341, 171.372 )
+scale = Vector2( 11.4008, 5.00284 )
 texture = ExtResource( 2 )
-normal_map = SubResource( 2 )
