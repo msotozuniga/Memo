@@ -10,7 +10,7 @@ func _ready():
 	hp_max = 20
 	parry_counter = 2
 	parry_max = 2
-	type = types_vars.ICE
+	type = types_vars.FIRE
 	dmg = 10
 	mode = RigidBody2D.MODE_CHARACTER
 	is_facing_right = -1

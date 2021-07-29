@@ -773,4 +773,4 @@ tile_data = PoolIntArray( -589658, 37, 0, -524122, 37, 0, -458586, 37, 0, -39305
 position = Vector2( 2121.31, 1553.63 )
 
 [node name="RigidBody2D3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1858.95, 1553.63 )
+position = Vector2( 1697.5, 1607.45 )

@@ -14,7 +14,7 @@ func _ready():
 	parry_counter = 1
 	parry_max = 1
 	type = types_vars.FIRE
-	dmg = 0
+	dmg = 10
 	is_att_close = false
 	is_target_far = true
 	

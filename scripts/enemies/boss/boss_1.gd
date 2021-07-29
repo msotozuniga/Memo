@@ -17,12 +17,12 @@ var activated = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hp = 50
-	hp_max = 50
+	hp = 250
+	hp_max = 250
 	enemies.append(mob_1)
 	enemies.append(mob_2)
 	type = types_vars.ICE
-	dmg = 20
+	dmg = 10
 	mode = RigidBody2D.MODE_STATIC
 	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
 	projectiles.append(preload("res://scenes/enemies/enemy_parry_projectile.tscn"))
@@ -68,7 +68,7 @@ func perform_damage():
 	.perform_damage()
 	
 func performDeath():
-	var pu_load = preload("res://scenes/p_related/fire_up.tscn")
+	var pu_load = preload("res://scenes/p_related/ice_up.tscn")
 	var pu = pu_load.instance()
 	pu.tglobal_position = self.global_position
 	get_parent().add_child(pu)

@@ -18,7 +18,7 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id=2]
 radius = 106.66
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 length = 0.6
 loop = true
@@ -71,7 +71,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -86,10 +86,10 @@ tracks/0/keys = {
 "values": [ Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 188.227, 269.69 )
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=6]
 radius = 42.2058
 
 [node name="boss_2" type="RigidBody2D"]
@@ -109,11 +109,11 @@ flip_h = true
 hframes = 5
 
 [node name="permanent" type="AnimationPlayer" parent="Sprite"]
-anims/idle = SubResource( 6 )
+anims/idle = SubResource( 3 )
 anims/mobs_death = ExtResource( 7 )
 
 [node name="animation" type="AnimationPlayer" parent="."]
-anims/perf_damage = SubResource( 3 )
+anims/perf_damage = SubResource( 4 )
 
 [node name="BehaviorTree" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -145,7 +145,7 @@ collision_mask = 2
 
 [node name="shape" type="CollisionShape2D" parent="activation_trigger"]
 position = Vector2( -232.314, 161.092 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="FireTimer" type="Timer" parent="."]
 
@@ -153,7 +153,7 @@ shape = SubResource( 4 )
 
 [node name="shape" type="CollisionShape2D" parent="projectile_spawn"]
 position = Vector2( 0.903687, 138.101 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_finished"]
 [connection signal="body_entered" from="activation_trigger" to="." method="_on_activation_trigger_body_entered"]

@@ -98,7 +98,7 @@ func performDeath():
 	is_flying = true
 	$Sprite/permanent.play("mobs_death")
 	yield($Sprite/permanent, "animation_finished")
-	var pu_load = preload("res://scenes/p_related/fire_up.tscn")
+	var pu_load = preload("res://scenes/p_related/elec_up.tscn")
 	var pu = pu_load.instance()
 	pu.global_position = self.global_position
 	get_parent().add_child(pu)
