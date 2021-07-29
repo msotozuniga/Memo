@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/CutScene-1.ogv" type="VideoStream" id=1]
+[ext_resource path="res://scenes/Cutscene1.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1880.0
+margin_bottom = 1048.0
+rect_scale = Vector2( 0.536, 0.552 )
+stream = ExtResource( 1 )
+volume_db = -22.52
+autoplay = true
+expand = false
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="finished" from="VideoPlayer" to="VideoPlayer" method="_on_VideoPlayer_finished"]

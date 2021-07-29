@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/City_tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/p_related/player.tscn" type="PackedScene" id=2]
@@ -17,8 +17,10 @@
 [ext_resource path="res://scenes/enemies/mobs/mob_6.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/enemies/mobs/mob_3.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/enemies/mobs/mob_1.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/Hell.gd" type="Script" id=18]
 
 [node name="Hell" type="Node2D"]
+script = ExtResource( 18 )
 
 [node name="blackboard" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -80,7 +82,7 @@ position = Vector2( 4448.94, -664.073 )
 [node name="mob_8" parent="." instance=ExtResource( 14 )]
 position = Vector2( 912.15, -596.267 )
 
-[node name="mob_7" parent="." instance=ExtResource( 15 )]
+[node name="Jefe" parent="." instance=ExtResource( 15 )]
 position = Vector2( 2548.48, -439.467 )
 
 [connection signal="body_entered" from="ToIceFromHell_warp" to="ToIceFromHell_warp" method="_on_Area2D_body_entered"]

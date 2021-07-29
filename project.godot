@@ -28,9 +28,14 @@ EngineTime="*res://scenes/EngineTime.tscn"
 
 shapes/collision/shape_color=Color( 0, 0.6, 0.701961, 0.501961 )
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-behavior-tree-plugin/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [global]
 
