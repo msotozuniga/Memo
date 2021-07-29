@@ -14,11 +14,15 @@ var magic_meter setget set_mana
 var health setget set_health
 var facing_right
 
-var has_fire = true
-var has_electro = true
-var has_ice = true
+var has_fire = false
+var has_electro = false
+var has_ice = false
 
 var is_frozen
+
+var selected_magic = 0
+var magics_collected = magics.size()
+
 
 export var is_parrying: bool
 
@@ -42,13 +46,14 @@ func _ready():
 	lineal_vel =Vector2()
 	speed = 500
 	gravity = 25
-	magic_meter=0
+	magic_meter=100
 	max_magic=100
 	max_hp = 100
 	health=100
 	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics.append(preload("res://scenes/p_related/ice_projectile.tscn"))
 	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
-	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics_collected = 0
 	timer = get_node("fly")
 	timer.set_one_shot(true)
 	timer.set_wait_time(1)
@@ -122,6 +127,13 @@ func _physics_process(_delta):
 			$shape.scale.x=$shape.scale.x*-1
 			$shape.position.x = $shape.position.x+16.150
 			facing_right=true
+			
+		# Cambio de magias
+		if Input.is_action_just_pressed("magic_left"):
+			selected_magic = (selected_magic - 1) % magics_collected
+			
+		if Input.is_action_just_pressed("magic_right"):
+			selected_magic = (selected_magic + 1) % magics_collected
 		
 func parry():
 	$animation.play("parry_sprite")
@@ -138,11 +150,11 @@ func stop_freeze():
 	
 func throwMagic():
 	if magic_meter==max_magic:
-		var b = magics[0].instance()
+		var b = magics[selected_magic].instance()
 		b.transform = self.transform
 		b.rotation = (get_global_mouse_position()-self.global_position).angle()
 		owner.add_child(b)
-		set_mana(0)
+		#set_mana(0)
 	
 func receive_damage(damage):
 	self.set_health(health-damage)
