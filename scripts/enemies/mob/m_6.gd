@@ -8,7 +8,7 @@ func _ready():
 	hp_max = 200
 	parry_counter = 1
 	parry_max = 1
-	type = types_vars.EARTH
+	type = types_vars.ELEC
 	dmg = 20
 	is_facing_right = 1
 	mode = RigidBody2D.MODE_STATIC
@@ -22,7 +22,7 @@ func _physics_process(delta):
 func attack_vertical():
 	var space = get_world_2d().direct_space_state
 	var top = global_position
-	top.y = top.y - 100000 
+	top.y = top.y - 10000
 	var line_of_sight_obstacles = space.intersect_ray(global_position, top, [self], 2)
 	if !line_of_sight_obstacles.empty():
 		var object = line_of_sight_obstacles.collider
@@ -50,13 +50,24 @@ func wander():
 	return
 	
 func perform_damage():
-	.perform_damage()
-	return
+	var temp = .perform_damage()
+	if temp:
+		$Sprite/permanent.play("mob_perf_dmg")
+		yield($Sprite/permanent, "animation_finished")
+	return temp
+	
+	
+func performDeath():
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	
 func _on_aggro_zone_body_entered(body):
 	is_in_attack_range = true
 	target = body
+	$Sprite/permanent.play("power_up")
 	
 func _on_aggro_zone_body_exited(body):
 	is_in_attack_range = false
 	target = null
+	$Sprite/permanent.play_backwards("power_up")

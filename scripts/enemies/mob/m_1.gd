@@ -14,6 +14,7 @@ func _ready():
 	dmg = 10
 	mode = RigidBody2D.MODE_CHARACTER
 	is_facing_right = -1
+	$Sprite/permanent.play("idle")
 	
 	
 func _physics_process(delta):
@@ -22,29 +23,10 @@ func _physics_process(delta):
 		
 		
 func fixFacing():
-	var old_facing = is_facing_right 
-	if target != null:
-		var dir = target.global_position - self.global_position
-		if dir.x < 0:
-			is_facing_right = -1
-		else:
-			is_facing_right = 1
-		
-		if is_facing_right != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
-			$attackRange.scale.x *= -1
-	else:
-		var dir = linear_velocity.x
-		if dir < 0:
-			is_facing_right = -1
-		elif dir > 0:
-			is_facing_right = 1
-		
-		if is_facing_right != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
-			$attackRange.scale.x *= -1
+	if .fixFacing():
+		$Sprite.scale.x *= -1
+		$hitbox.scale.x *= -1
+		$attackRange.scale.x *= -1
 			
 		
 	
@@ -55,11 +37,21 @@ func attack():
 	attacTimer.start()
 	$attack.play("a_pattern")
 		
-	
+
+func perform_damage():
+	var temp = .perform_damage()
+	if temp:
+		$Sprite/permanent.play("mob_perf_dmg")
+	return temp
 	
 func performDeath():
-	is_hit = false
-	return
+	$movement.stop()
+	$attack.stop()
+	$Sprite/permanent.stop()
+	is_flying = true
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	
 func wander():
 	$movement.play("wander")
@@ -73,7 +65,7 @@ func chase():
 func throw(val):
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		.throw(40)
+		.throw(70)
 		throw_stop_timestop()
 		
 	
@@ -84,5 +76,6 @@ func _on_hitbox_parry_entered(area):
 	$hitbox/shape.disabled=true
 	if parried:
 		$attack.stop(false)
+		$attackRange/Sprite.set_texture(null)
 	return true
 	

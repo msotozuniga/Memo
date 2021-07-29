@@ -31,6 +31,7 @@ func _ready():
 	rotate_timer.start()
 	projectiles.append(preload("res://scenes/enemies/enemy_projectile.tscn"))
 	is_facing_right = -1
+	$Sprite/permanent.play("idle")
 	
 	
 	
@@ -100,6 +101,19 @@ func throw(val):
 		.throw(40)
 		throw_stop_timestop()
 		
+func perform_damage():
+	var temp = .perform_damage()
+	if temp:
+		$Sprite/permanent.play("per_dmg")
+		yield($Sprite/permanent, "animation_finished")
+		$Sprite/permanent.play("idle")
+	return temp
+		
+func performDeath():
+	$attack.stop()
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	
 	
 	

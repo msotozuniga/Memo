@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/p_related/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/enemies/mobs/mob_0_elec.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/mobs/mob_3_fire.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/scenery/tiles/tileset_4.png" type="Texture" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=4]
 [ext_resource path="res://scenes/camera_l1.tscn" type="PackedScene" id=5]
@@ -744,7 +744,7 @@ points = PoolVector2Array( 64, 192, 0, 192, 0, 0, 64, 0 )
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2323.56, 1596.34 )
+position = Vector2( 1237.2, 1583.42 )
 
 [node name="fondo" parent="Player" instance=ExtResource( 5 )]
 visible = false
@@ -764,5 +764,6 @@ tile_data = PoolIntArray( -589658, 37, 0, -524122, 37, 0, -458586, 37, 0, -39305
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource( 4 )
 
-[node name="mob_1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1328.37, 1554.25 )
+[node name="mob" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1680.68, 1459.45 )
+rotation = 1.5708

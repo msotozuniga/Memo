@@ -4,7 +4,7 @@ onready var tree = $BehaviorTree
 
 onready var attacTimer=$AttackTimer
 
-var has_guard_on
+export var has_guard_on: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,29 +24,18 @@ func _physics_process(delta):
 		
 		
 func fixFacing():
-	var old_facing = is_facing_right 
-	if target != null:
-		var dir = target.global_position - self.global_position
-		if dir.x < 0:
-			is_facing_right = -1
-		else:
-			is_facing_right = 1
+	if .fixFacing():
+		fix_sprite()
+		$hitbox.scale.x *= -1
+		$attackRange.scale.x *= -1
 		
-		if is_facing_right != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
-			$attackRange.scale.x *= -1
-	else:
-		var dir = linear_velocity.x
-		if dir < 0:
-			is_facing_right = -1
-		elif dir > 0:
-			is_facing_right = 1
-		
-		if is_facing_right != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
-			$attackRange.scale.x *= -1
+func fix_sprite():
+	# Sprite scale = (0.548,0.518)
+	$Sprite.scale.x *= -1
+	if is_facing_right == -1:
+		$Sprite.position = Vector2(-94.857, -29.507)
+	elif is_facing_right == 1:
+		$Sprite.position = Vector2(94.857,-29.507)
 			
 		
 	
@@ -67,12 +56,22 @@ func receive_damage(dmg, mode):
 	
 func raise_guard():
 	has_guard_on = true
-		
 	
+func perform_damage():
+	var temp = .perform_damage()
+	if temp:
+		$Sprite/permanent.play("mob_perf_dmg")
+		yield($Sprite/permanent, "animation_finished")
+	return temp
 	
 func performDeath():
-	is_hit = false
-	return
+	is_flying = true
+	$attack.stop()
+	$movement.stop()
+	$Sprite/permanent.stop()
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	
 func wander():
 	$movement.play("wander")
@@ -86,9 +85,10 @@ func chase():
 func throw(val):
 	throw_start_timestop()
 	if Input.is_action_just_pressed("parry"):
-		.throw(40)
-		throw_stop_timestop()
 		has_guard_on = false
+		.throw(70)
+		throw_stop_timestop()
+		
 		
 	
 func _on_mob_body_entered(body):

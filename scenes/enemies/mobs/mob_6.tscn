@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://sprites/enemies/mob/enemy.png" type="Texture" id=1]
+[ext_resource path="res://sprites/enemies/mob/Torreta-doble-electro.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/mob/m_6.gd" type="Script" id=2]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/in_range.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
@@ -10,9 +10,63 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/attack.gd" type="Script" id=8]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=9]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=10]
+[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=11]
+[ext_resource path="res://sprites/enemies/mobs_death.tres" type="Animation" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 54.5785, 82.205 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "power_up"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 1549.69
@@ -37,13 +91,16 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="body"]
-visible = false
-position = Vector2( -0.0314927, 0.626678 )
-scale = Vector2( -0.212, 0.208 )
+position = Vector2( -7.96851, -8.89772 )
+scale = Vector2( -0.36439, 0.360391 )
 texture = ExtResource( 1 )
 flip_h = true
-hframes = 5
-frame = 1
+hframes = 4
+
+[node name="permanent" type="AnimationPlayer" parent="body/Sprite"]
+anims/mob_perf_dmg = ExtResource( 11 )
+anims/mobs_death = ExtResource( 12 )
+anims/power_up = SubResource( 5 )
 
 [node name="aggro_zone" type="Area2D" parent="body"]
 collision_layer = 0

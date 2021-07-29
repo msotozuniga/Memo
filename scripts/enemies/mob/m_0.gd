@@ -7,7 +7,7 @@ func _ready():
 	hp_max = 20
 	parry_counter = 1
 	parry_max = 1
-	type = types_vars.FIRE
+	type = types_vars.ICE
 	dmg = 10
 	
 	is_facing_right = 1
@@ -51,6 +51,7 @@ func perform_damage():
 	
 	
 func performDeath():
+	$animations.stop()
 	$Sprite/permanent.play("death")
 	yield($Sprite/permanent, "animation_finished")
 	.performDeath()

@@ -52,6 +52,8 @@ func receive_damage(dmg, mode):
 	self.change_health(-1*dmg)
 	if hp <=0:
 		performDeath()
+	else:
+		perform_damage()
 	is_hit = true
 	
 func performDeath():

@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/enemies/mob/m_5.gd" type="Script" id=1]
-[ext_resource path="res://sprites/enemies/mob/enemy-3-walking.png" type="Texture" id=2]
+[ext_resource path="res://sprites/enemies/mob/Taladro-pyro1.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=5]
@@ -14,17 +14,60 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/follow.gd" type="Script" id=12]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=13]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
+[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=15]
+[ext_resource path="res://sprites/enemies/mobs_death.tres" type="Animation" id=16]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 47.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 48.1671
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
 
 [sub_resource type="CircleShape2D" id=3]
+radius = 48.1671
+
+[sub_resource type="CircleShape2D" id=4]
 radius = 1498.66
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 755.59
 
 [node name="mob_1" type="Node2D"]
@@ -42,12 +85,17 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="mob"]
-scale = Vector2( 0.227151, 0.189695 )
+position = Vector2( 6.36395, 0.353546 )
+scale = Vector2( -0.295, 0.267 )
 texture = ExtResource( 2 )
 hframes = 4
 
+[node name="permanent" type="AnimationPlayer" parent="mob/Sprite"]
+anims/idle = SubResource( 2 )
+anims/mob_perf_dmg = ExtResource( 15 )
+anims/mobs_death = ExtResource( 16 )
+
 [node name="hitbox" type="Area2D" parent="mob"]
-visible = false
 modulate = Color( 0.615686, 0.0862745, 0.0862745, 1 )
 light_mask = 3
 z_index = 1
@@ -59,7 +107,7 @@ modulate = Color( 0.164706, 0.698039, 0.45098, 1 )
 light_mask = 3
 position = Vector2( -2.05569, 0.964172 )
 z_index = 1
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 disabled = true
 
 [node name="BehaviorTree" type="Node" parent="mob"]
@@ -111,24 +159,22 @@ script = ExtResource( 12 )
 script = ExtResource( 8 )
 
 [node name="chaseBox" type="Area2D" parent="mob"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="chase_shape" type="CollisionShape2D" parent="mob/chaseBox"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="AttackTimer" type="Timer" parent="mob"]
 wait_time = 5.0
 
 [node name="attackRange" type="Area2D" parent="mob"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mob/attackRange"]
 position = Vector2( 0, -1.41422 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [connection signal="body_entered" from="mob" to="mob" method="_on_mob_body_entered"]
 [connection signal="area_entered" from="mob/hitbox" to="mob" method="_on_hitbox_parry_entered"]

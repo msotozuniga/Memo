@@ -16,6 +16,7 @@ func _ready():
 	shot_by_enemy =true
 	contact_monitor = true
 	contacts_reported = 1
+	$Sprite/permanent.play("summon")
 	
 func _physics_process(delta):
 	if is_stopped:
@@ -31,6 +32,7 @@ func throw_stop_timestop():
 	if is_stopped:
 		linear_velocity = hold_velocity
 		is_stopped = false
+		shot_by_enemy = true
 
 func consume():
 	throw_stop_timestop()
@@ -38,7 +40,6 @@ func consume():
 
 func throw():
 	if Input.is_action_just_pressed("parry"):
-		shot_by_enemy = false
 		is_stopped = false
 		var smashed_against_wall = false
 		var unit_vector= (get_global_mouse_position()-self.global_position).normalized()
@@ -97,6 +98,7 @@ func _on_parry_area_entered(area):
 	linear_velocity = Vector2(0,0)
 	throw_start_timestop()
 	is_stopped = true
+	shot_by_enemy=false
 
 
 func _on_parry_body_entered(body):

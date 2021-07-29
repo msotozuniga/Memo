@@ -18,7 +18,12 @@ func _ready():
 	is_facing_right = -1
 
 func _physics_process(delta):
+	fixFacing()
 	tree.tick(self,self.blackboard)
+	
+func fixFacing():
+	if target != null:
+		look_at(target.global_position)
 	
 
 func throw(val):

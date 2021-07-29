@@ -15,7 +15,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.2021
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "death"
 length = 0.3
 step = 0.05
@@ -80,7 +80,7 @@ tracks/4/keys = {
 "values": [ Vector2( -2.23437, 2.04688 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 length = 0.4
 loop = true
@@ -133,7 +133,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=4]
 resource_name = "per_dmg"
 length = 0.2
 tracks/0/type = "value"
@@ -228,9 +228,9 @@ hframes = 4
 frame = 3
 
 [node name="permanent" type="AnimationPlayer" parent="body/Sprite"]
-anims/death = SubResource( 8 )
-anims/idle = SubResource( 9 )
-anims/per_dmg = SubResource( 10 )
+anims/death = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/per_dmg = SubResource( 4 )
 
 [node name="aggro_zone" type="Area2D" parent="body"]
 visible = false

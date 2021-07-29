@@ -15,7 +15,7 @@ var health setget set_health
 var facing_right
 
 var has_fire = true
-var has_electro = false
+var has_electro = true
 var has_ice = true
 
 export var is_parrying: bool
