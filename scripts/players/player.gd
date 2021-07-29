@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-
+var last_checkpoint = Vector2()
 var lineal_vel = Vector2()
 var speed
 var gravity
@@ -14,9 +14,9 @@ var magic_meter setget set_mana
 var health setget set_health
 var facing_right
 
-var has_fire = false
-var has_electro = false
-var has_ice = false
+var has_fire = true
+var has_electro = true
+var has_ice = true
 
 export var is_parrying: bool
 
@@ -55,6 +55,7 @@ func _ready():
 	facing_right = true
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value=magic_meter
+	checkpoint()
 	
 func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
@@ -153,3 +154,7 @@ func increase_magic(amount):
 
 func _on_runTimer_timeout():
 	runCooldown = false
+
+func checkpoint():
+	if !last_checkpoint == Vector2(0,0):
+		set_global_position(last_checkpoint)
