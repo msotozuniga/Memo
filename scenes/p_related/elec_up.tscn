@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scripts/players/fire_up.gd" type="Script" id=1]
+[ext_resource path="res://scripts/players/elec_up.gd" type="Script" id=1]
 [ext_resource path="res://sprites/players/ball_only.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 1.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 51.1682
+radius = 53.0007
 
-[node name="fire_up" type="RigidBody2D"]
+[node name="elec_up" type="RigidBody2D"]
 input_pickable = true
 collision_layer = 128
 script = ExtResource( 1 )
@@ -23,11 +23,10 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="shape" type="CollisionShape2D" parent="pick_area"]
-position = Vector2( 0.8909, 0 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 2, 0.59, 0.59, 1 )
+modulate = Color( 2, 0.59, 2, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 

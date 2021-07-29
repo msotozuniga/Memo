@@ -21,7 +21,7 @@ var has_ice = false
 var is_frozen
 
 var selected_magic = 0
-var magics_collected = magics.size()
+var magics_collected = 0
 
 
 export var is_parrying: bool
@@ -50,9 +50,7 @@ func _ready():
 	max_magic=100
 	max_hp = 100
 	health=100
-	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
-	magics.append(preload("res://scenes/p_related/ice_projectile.tscn"))
-	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics = []
 	magics_collected = 0
 	timer = get_node("fly")
 	timer.set_one_shot(true)
