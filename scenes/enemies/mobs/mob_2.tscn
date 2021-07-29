@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/enemies/mob/m_2.gd" type="Script" id=1]
-[ext_resource path="res://sprites/enemies/mob/enemy-4-attack.png" type="Texture" id=2]
+[ext_resource path="res://sprites/enemies/mob/enemy-4-fly.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=5]
@@ -15,9 +15,64 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=13]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_2/circle_around.gd" type="Script" id=15]
+[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=16]
+[ext_resource path="res://sprites/enemies/mobs_death.tres" type="Animation" id=17]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 36.1589
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 39.6328
@@ -84,12 +139,19 @@ position = Vector2( 0, -12 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="mob"]
-position = Vector2( -3.32374, -5.96058 )
-scale = Vector2( 0.227913, 0.217843 )
+position = Vector2( 4.27047, -6.34783 )
+scale = Vector2( -0.218111, 0.190906 )
 texture = ExtResource( 2 )
 hframes = 4
+frame = 3
+
+[node name="permanent" type="AnimationPlayer" parent="mob/Sprite"]
+anims/idle = SubResource( 6 )
+anims/mob_perf_dmg = ExtResource( 16 )
+anims/mobs_death = ExtResource( 17 )
 
 [node name="hitbox" type="Area2D" parent="mob"]
+visible = false
 collision_layer = 0
 collision_mask = 66
 
@@ -153,6 +215,7 @@ script = ExtResource( 12 )
 script = ExtResource( 8 )
 
 [node name="chaseBox" type="Area2D" parent="mob"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

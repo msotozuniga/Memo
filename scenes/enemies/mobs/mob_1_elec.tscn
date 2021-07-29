@@ -1,12 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://scripts/enemies/mob/m_7.gd" type="Script" id=1]
-[ext_resource path="res://sprites/enemies/mob/pyro-caballero-camina.png" type="Texture" id=2]
+[ext_resource path="res://scripts/enemies/mob/m_1.gd" type="Script" id=1]
+[ext_resource path="res://sprites/enemies/mob/melee-electrico.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=5]
-[ext_resource path="res://sprites/vfx/prt/Explosion.png" type="Texture" id=6]
-[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=7]
+[ext_resource path="res://sprites/enemies/mob/melee-electrico-walk.png" type="Texture" id=6]
 [ext_resource path="res://scripts/enemies/mob/behavior/wait.gd" type="Script" id=8]
 [ext_resource path="res://scripts/enemies/mob/behavior/search.gd" type="Script" id=9]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/attack.gd" type="Script" id=10]
@@ -16,18 +15,19 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=14]
 [ext_resource path="res://scripts/enemies/mob/behavior/is_flying.gd" type="Script" id=15]
 [ext_resource path="res://sprites/enemies/mobs_death.tres" type="Animation" id=16]
-[ext_resource path="res://sprites/enemies/mob/pyro-caballero-attack.png" type="Texture" id=17]
+[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=17]
+[ext_resource path="res://sprites/vfx/prt/SpaceShooterAssetPack_Projectiles.png" type="Texture" id=19]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 45.365
-height = 3.16109
+radius = 29.3176
+height = 51.1808
 
-[sub_resource type="Animation" id=8]
-resource_name = "walk"
-length = 0.4
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.3
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:hframes")
+tracks/0/path = NodePath(".:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -36,7 +36,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:vframes")
@@ -57,13 +57,13 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 0, 3, 2 ]
+"values": [ 0, 1, 2 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath(".:texture")
+tracks/3/path = NodePath(".:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -72,17 +72,14 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ 3 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 98.8719, 38.7189 )
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 63.8798
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 135.105, 38.7189 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 972.42, 48.393 )
+extents = Vector2( 618.25, 48.393 )
 
 [sub_resource type="Animation" id=5]
 length = 20.0
@@ -112,49 +109,49 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 104.719, 42.4346 )
+extents = Vector2( 149.943, 42.4346 )
 
 [sub_resource type="Animation" id=7]
-length = 1.75
-step = 0.01
+length = 1.63333
+step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("hitbox/shape_1:disabled")
+tracks/0/path = NodePath("hitbox/shape:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.266667 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.216667, 0.383333, 1.28333, 1.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ true, false, true, false, true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("hitbox/shape_2:disabled")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.55, 0.716667, 1.28333, 1.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.085, 0.221, 0.391, 0.544, 1.156, 1.28, 1.445, 1.564 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, true, false, true ]
+"values": [ 0, 1, 3, 1, 0, 1, 2, 1, 0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("hitbox/shape_3:disabled")
+tracks/2/path = NodePath("Sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:texture")
+tracks/3/path = NodePath("Sprite:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -163,22 +160,22 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 17 ) ]
+"values": [ 5 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite:frame")
+tracks/4/path = NodePath("Sprite:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.02, 0.06, 0.1, 0.18, 0.26, 0.5, 0.54, 0.64, 1.28, 1.38, 1.5, 1.6, 1.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11, 12 ]
+"values": [ 1 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite:hframes")
+tracks/5/path = NodePath("attackRange/Sprite:hframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -187,10 +184,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 13 ]
+"values": [ 2 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Sprite:vframes")
+tracks/6/path = NodePath("attackRange/Sprite:vframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -202,129 +199,70 @@ tracks/6/keys = {
 "values": [ 1 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("hitbox/att_sprite:texture")
+tracks/7/path = NodePath("attackRange/Sprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 1.4, 1.52 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.383334, 1.16, 1.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ null, ExtResource( 6 ), null ]
+"values": [ null, ExtResource( 19 ), null, ExtResource( 19 ), null ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("hitbox/att_sprite:hframes")
+tracks/8/path = NodePath("attackRange/Sprite:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 1.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.221, 1.156, 1.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 8 ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("hitbox/att_sprite:vframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 1.4 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("hitbox/att_sprite:frame")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 1.4, 1.42, 1.44, 1.46, 1.48, 1.5, 1.52 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 6, 7 ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath(".:has_guard_on")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0, 0.01, 1.74, 1.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, false, true ]
+"values": [ 0, 1, 0, 1, 0 ]
 }
 
-[node name="mob_7" type="Node2D"]
+[node name="mob_1" type="Node2D"]
 
 [node name="mob" type="RigidBody2D" parent="."]
 collision_layer = 4
 collision_mask = 5
 mode = 2
 mass = 2.04082
-gravity_scale = 9.8
-linear_velocity = Vector2( -0.00625367, 0 )
+gravity_scale = 9.0
 script = ExtResource( 1 )
-has_guard_on = true
 
 [node name="hurtbox" type="CollisionShape2D" parent="mob"]
+position = Vector2( 0, 6.007 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="mob"]
-position = Vector2( -95, -29 )
-scale = Vector2( 0.547604, 0.517667 )
-texture = ExtResource( 17 )
-hframes = 13
-frame = 12
+position = Vector2( -8.28949, 7.10347 )
+scale = Vector2( 0.23, 0.231 )
+texture = ExtResource( 2 )
+hframes = 5
 
 [node name="permanent" type="AnimationPlayer" parent="mob/Sprite"]
-anims/mob_perf_dmg = ExtResource( 7 )
+anims/idle = SubResource( 2 )
+anims/mob_perf_dmg = ExtResource( 17 )
 anims/mobs_death = ExtResource( 16 )
-anims/walk = SubResource( 8 )
 
 [node name="hitbox" type="Area2D" parent="mob"]
+visible = false
 modulate = Color( 0.615686, 0.0862745, 0.0862745, 1 )
 light_mask = 3
 z_index = 1
 collision_layer = 0
 collision_mask = 66
 
-[node name="shape_1" type="CollisionShape2D" parent="mob/hitbox"]
+[node name="shape" type="CollisionShape2D" parent="mob/hitbox"]
 modulate = Color( 0.164706, 0.698039, 0.45098, 1 )
 light_mask = 3
-position = Vector2( -107.322, 1.52588e-05 )
+position = Vector2( -123.678, 2.37839 )
 z_index = 1
-shape = SubResource( 2 )
-disabled = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="shape_2" type="CollisionPolygon2D" parent="mob/hitbox"]
-position = Vector2( -250.316, 1.41422 )
-polygon = PoolVector2Array( 43.2685, 35.7286, 215.002, 36.5205, 216.684, -35.7965, 42.0793, -117.679 )
-disabled = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="shape_3" type="CollisionShape2D" parent="mob/hitbox"]
-position = Vector2( -225.654, -0.675023 )
 shape = SubResource( 3 )
 disabled = true
-
-[node name="att_sprite" type="Sprite" parent="mob/hitbox"]
-position = Vector2( -229, -0.679819 )
-scale = Vector2( 3.76157, 3.68414 )
-hframes = 8
-frame = 7
 
 [node name="BehaviorTree" type="Node" parent="mob"]
 script = ExtResource( 4 )
@@ -386,9 +324,14 @@ anims/wander = SubResource( 5 )
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="mob/attackRange"]
-position = Vector2( -103.655, 1.7034 )
+[node name="shape" type="CollisionShape2D" parent="mob/attackRange"]
+position = Vector2( -120.11, 2.37842 )
 shape = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="mob/attackRange"]
+position = Vector2( -148.675, 6.05764 )
+scale = Vector2( -10.1411, 7.81359 )
+hframes = 2
 
 [node name="attack" type="AnimationPlayer" parent="mob"]
 anims/a_pattern = SubResource( 7 )

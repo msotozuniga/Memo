@@ -12,10 +12,12 @@ func _ready():
 	hp_max = 60
 	parry_counter = 3
 	parry_max = 3
-	type = types_vars.EARTH
+	type = types_vars.FIRE
 	dmg = 20
 	
 	is_facing_right = -1
+	
+	$Sprite/permanent.play("idle")
 	
 	
 func _physics_process(delta):
@@ -25,17 +27,9 @@ func _physics_process(delta):
 		
 func fixFacing():
 	if target != null:
-		var old_facing = is_facing_right
-		var dir = target.global_position - self.global_position
-		if dir.x < 0:
-			is_facing_right = -1
-		else:
-			is_facing_right = 1
-		
-		if is_facing_right != old_facing:
-			$Sprite.scale.x *= -1
-			$hitbox.scale.x *= -1
-			$attackRange.scale.x *= -1
+		look_at(target.global_position)
+	else:
+		.fixFacing()
 	
 # Acciones
 func lunge(player):
@@ -59,8 +53,18 @@ func attack():
 	$hitbox/shape.disabled = true
 	
 	
+func perform_damage():
+	var temp = .perform_damage()
+	if temp:
+		$Sprite/permanent.play("mob_perf_dmg")
+		yield($Sprite/permanent, "animation_finished")
+		$Sprite/permanent.play("idle")
+	return temp
+	
 func performDeath():
-	return
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	
 func wander():
 	return
