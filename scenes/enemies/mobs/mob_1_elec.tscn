@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://scripts/enemies/mob/m_1.gd" type="Script" id=1]
+[ext_resource path="res://scripts/enemies/mob/m_1_elec.gd" type="Script" id=1]
 [ext_resource path="res://sprites/enemies/mob/melee-electrico.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]

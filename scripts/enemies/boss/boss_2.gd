@@ -6,15 +6,17 @@ var activated = false
 var rng = RandomNumberGenerator.new()
 
 func _ready():	
-	hp = 1
-	hp_max = 1
+	hp = 100
+	hp_max = 100
 	parry_counter = 1
 	parry_max = 1
 	type = types_vars.ELEC
-	dmg = 0
+	dmg = 10
 	
 	is_facing_right = -1
 	mode = RigidBody2D.MODE_CHARACTER
+	
+	$Sprite/permanent.play("idle")
 	
 	projectiles.append(preload("res://scenes/enemies/enemy_chasing_projectile.tscn"))
 	projectiles.append(preload("res://scenes/enemies/enemy_parry_projectile.tscn"))
@@ -91,10 +93,16 @@ func perform_damage():
 	$animation.play("perf_damage")
 	
 func performDeath():
-	var pu_load = preload("res://scenes/p_related/fire_up.tscn")
+	$animation.stop()
+	$Sprite/permanent.stop()
+	is_flying = true
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	var pu_load = preload("res://scenes/p_related/elec_up.tscn")
 	var pu = pu_load.instance()
 	pu.global_position = self.global_position
 	get_parent().add_child(pu)
+	.performDeath()
 	return
 	
 	

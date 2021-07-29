@@ -17,7 +17,7 @@
 [ext_resource path="res://scripts/enemies/boss/behavior/is_active.gd" type="Script" id=15]
 [ext_resource path="res://scripts/enemies/mob/behavior/is_flying.gd" type="Script" id=16]
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=1]
 radius = 53.8164
 
 [sub_resource type="CircleShape2D" id=2]
@@ -174,7 +174,7 @@ __meta__ = {
 }
 
 [node name="shape" type="CollisionShape2D" parent="ball/hitbox"]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="ball"]
 shape = SubResource( 2 )

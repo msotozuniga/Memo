@@ -8,16 +8,16 @@ onready var enemies = []
 
 
 func _ready():	
-	hp = 1000
-	hp_max = 1000
+	hp = 50
+	hp_max = 500
 	parry_counter = 1
 	parry_max = 1
 	type = types_vars.NEUTRAL
-	dmg = 1
+	dmg = 20
 	
 	enemies.append(preload("res://scenes/enemies/mobs/mob_1.tscn"))
-	enemies.append(preload("res://scenes/enemies/mobs/mob_7.tscn"))
-	enemies.append(preload("res://scenes/enemies/mobs/mob_1.tscn"))
+	enemies.append(preload("res://scenes/enemies/mobs/mob_1_fire.tscn"))
+	enemies.append(preload("res://scenes/enemies/mobs/mob_1_elec.tscn"))
 	
 	is_facing_right = 1
 	mode = RigidBody2D.MODE_STATIC
@@ -32,13 +32,15 @@ func activate():
 	$timer_r.start()
 	
 func spawn_enemy(side: bool):
-	var enemy_to_spawn = randi() % 3
-	var enemy = enemies[enemy_to_spawn].instance()
-	if side:
-		enemy.global_position = $spawner_r/shape.global_position
-	else:
-		enemy.global_position = $spawner_l/shape.global_position
-	get_tree().current_scene.add_child(enemy)
+	var chance = randi() % 3
+	if chance == 0:
+		var enemy_to_spawn = randi() % 3
+		var enemy = enemies[enemy_to_spawn].instance()
+		if side:
+			enemy.global_position = $spawner_r/shape.global_position
+		else:
+			enemy.global_position = $spawner_l/shape.global_position
+		get_tree().current_scene.add_child(enemy)
 	return
 	
 	
@@ -60,6 +62,12 @@ func performDeath():
 	var pu = pu_load.instance()
 	pu.global_position = self.global_position
 	get_parent().add_child(pu)
+	$animation.stop()
+	$Sprite/permanent.stop()
+	is_flying = true
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	return
 	
 func _on_activation_trigger_body_entered(body):

@@ -21,7 +21,7 @@ onready var attacTimer=$AttackTimer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hp = 50
-	hp_max =50
+	hp_max = 50
 	parry_counter = 1
 	parry_max = 1
 	dmg = 20

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/IcePick_64x64.png-f04b23141cf519ef26114973aa10f458.stex"
+path="res://.import/ball_only.png-053f423467c5836f3bd88abf247b234b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/vfx/GameFXexport/SPRITESHEET_Files/IcePick_64x64.png"
-dest_files=[ "res://.import/IcePick_64x64.png-f04b23141cf519ef26114973aa10f458.stex" ]
+source_file="res://sprites/players/ball_only.png"
+dest_files=[ "res://.import/ball_only.png-053f423467c5836f3bd88abf247b234b.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
