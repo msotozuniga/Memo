@@ -9,8 +9,8 @@ var is_target_far
 var wandering_direction : Vector2
 
 func _ready():	
-	hp = 600
-	hp_max = 600
+	hp = 250
+	hp_max = 250
 	parry_counter = 1
 	parry_max = 1
 	type = types_vars.FIRE
@@ -23,9 +23,16 @@ func _ready():
 
 	projectiles.append(preload("res://scenes/enemies/fire_enemy_projectile.tscn"))
 	projectiles.append(preload("res://scenes/enemies/ice_enemy_projectile.tscn"))
+	$Sprite/permanent.play("idle")
 	
 func _physics_process(delta):
+	fixFacing()
 	tree.tick(self, blackboard)
+	
+func fixFacing():
+	if .fixFacing():
+		$Sprite.scale.x *= -1
+		$projectile_spawn.scale.x *= -1
 	
 # Comportamiento
 func activate():
@@ -55,17 +62,29 @@ func attack_push():
 	var dir = (target_pos - self.global_position).normalized()
 	target.lineal_vel = dir * 10000
 	target.receive_damage(10)
+	target.stop_freeze()
 	is_att_close = false
 	is_target_far = true
 	$FireTimer.start()
 	return
 	
-
+func onfloor():
+	var val = 100
+	var space = get_world_2d().direct_space_state
+	var temp_pos = global_position
+	temp_pos.y = temp_pos.y + val
+	var line_of_sight_obstacles = space.intersect_ray(global_position, temp_pos, [self], 1)
+	if !line_of_sight_obstacles.empty():
+		var object_position = line_of_sight_obstacles.position
+		var radio = (global_position - object_position).abs()
+		if radio.y < val:
+			return true
+	return false
 		
 func wander():
 	linear_velocity.x = (wandering_direction * 600).x
-	var number = randi() % 50
-	if number == 0:
+	var number = randi() % 20
+	if number == 0 and onfloor():
 		linear_velocity.y = (wandering_direction * 600).y
 	return
 
@@ -105,7 +124,14 @@ func performDeath():
 	var pu = pu_load.instance()
 	pu.global_position = self.global_position
 	get_parent().add_child(pu)
+	$animation.stop()
+	$Sprite/permanent.stop()
+	is_flying = true
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	return
+	
 	
 func check_side_walls():
 	var is_touching_wall = false

@@ -18,6 +18,8 @@ var has_fire = true
 var has_electro = true
 var has_ice = true
 
+var is_frozen
+
 export var is_parrying: bool
 
 
@@ -60,72 +62,79 @@ func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
 	lineal_vel.y += gravity
 	var in_floor= is_on_floor()
-	# Movimiento lateral 
-	var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
+	
 	
 	# Carrera
-	if Input.is_action_just_pressed("run") and not runCooldown and has_fire:
-		runCooldown = true
-		runTimer.start()
-		lineal_vel.x=lineal_vel.x*4
-		speed = 700
+	if !is_frozen:
+		var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
 		
-	if Input.is_action_just_released("run"):
+		if Input.is_action_just_pressed("run") and not runCooldown and has_fire:
+			runCooldown = true
+			runTimer.start()
+			lineal_vel.x=lineal_vel.x*4
+			speed = 700
 		
-		speed = 500
+		if Input.is_action_just_released("run"):
+			speed = 500
 	
-	# Salto
-	if Input.is_action_just_pressed("jump") and in_floor:
-		lineal_vel.y= -500*1.6
+		# Salto
+		if Input.is_action_just_pressed("jump") and in_floor:
+			lineal_vel.y= -500*1.6
 	
-	# Parry
-	if Input.is_action_just_pressed("parry"):
-		parry()
+		# Parry
+		if Input.is_action_just_pressed("parry"):
+			parry()
 		
-	# Magic
-	if Input.is_action_just_pressed("magic") and (has_ice or has_fire or has_electro):
-		throwMagic()
-		
-	
-	# Vuelo
-	if in_floor:
-		fly_charge=true
-	
-	# Activar vuelo
-	if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge and has_electro:
-		timer.start(0.5)
-		gravity = 0
-		lineal_vel.y=0
-		fly_mode=true
-		fly_charge = false
-	
-	# Vuelo vertical	
-	if fly_mode:
-		var direction_y = Input.get_action_strength("fly_down") - Input.get_action_strength("fly_up")
-		lineal_vel.y = lerp(lineal_vel.y,direction_y*speed,0.4)
+		# Magic
+		if Input.is_action_just_pressed("magic") and (has_ice or has_fire or has_electro):
+			throwMagic()
 		
 	
-	# Terminar vuelo 
-	if timer.is_stopped() or is_on_floor():
-		gravity = 25
-		fly_mode = false
+		# Vuelo
+		if in_floor:
+			fly_charge=true
+	
+		# Activar vuelo
+		if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge and has_electro:
+			timer.start(0.5)
+			gravity = 0
+			lineal_vel.y=0
+			fly_mode=true
+			fly_charge = false
+	
+		# Vuelo vertical	
+		if fly_mode:
+			var direction_y = Input.get_action_strength("fly_down") - Input.get_action_strength("fly_up")
+			lineal_vel.y = lerp(lineal_vel.y,direction_y*speed,0.4)
 		
-	if Input.is_action_just_pressed("move_left") and facing_right:
-		$shape.scale.x=$shape.scale.x*-1
-		$shape.position.x = $shape.position.x-16.150
-		facing_right=false
-	if Input.is_action_just_pressed("move_right") and !facing_right:
-		$shape.scale.x=$shape.scale.x*-1
-		$shape.position.x = $shape.position.x+16.150
-		facing_right=true
+	
+		# Terminar vuelo 
+		if timer.is_stopped() or is_on_floor():
+			gravity = 25
+			fly_mode = false
+		
+		if Input.is_action_just_pressed("move_left") and facing_right:
+			$shape.scale.x=$shape.scale.x*-1
+			$shape.position.x = $shape.position.x-16.150
+			facing_right=false
+		if Input.is_action_just_pressed("move_right") and !facing_right:
+			$shape.scale.x=$shape.scale.x*-1
+			$shape.position.x = $shape.position.x+16.150
+			facing_right=true
 		
 func parry():
 	$animation.play("parry_sprite")
-	pass
+	return
 	
 func freeze():
-	pass
+	is_frozen = true
+	var freeze_timer = get_tree().create_timer(2)
+	freeze_timer.connect("timeout",self,"stop_freeze")
+	return
+	
+func stop_freeze():
+	is_frozen = false
 	
 func throwMagic():
 	if magic_meter==max_magic:

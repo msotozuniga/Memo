@@ -8,8 +8,8 @@ onready var enemies = []
 
 
 func _ready():	
-	hp = 1000
-	hp_max = 1000
+	hp = 50
+	hp_max = 500
 	parry_counter = 1
 	parry_max = 1
 	type = types_vars.NEUTRAL
@@ -60,6 +60,12 @@ func performDeath():
 	var pu = pu_load.instance()
 	pu.global_position = self.global_position
 	get_parent().add_child(pu)
+	$animation.stop()
+	$Sprite/permanent.stop()
+	is_flying = true
+	$Sprite/permanent.play("mobs_death")
+	yield($Sprite/permanent, "animation_finished")
+	.performDeath()
 	return
 	
 func _on_activation_trigger_body_entered(body):
