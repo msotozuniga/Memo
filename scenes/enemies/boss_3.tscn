@@ -1,0 +1,170 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://sprites/enemies/bosses/boss start animation.png" type="Texture" id=1]
+[ext_resource path="res://scripts/enemies/boss/boss_3.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
+[ext_resource path="res://scripts/enemies/boss/behavior/is_active.gd" type="Script" id=5]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=6]
+[ext_resource path="res://scripts/enemies/boss/behavior/att_close.gd" type="Script" id=7]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=8]
+[ext_resource path="res://scripts/enemies/boss/behavior/is_attacking_close.gd" type="Script" id=9]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=10]
+[ext_resource path="res://scripts/enemies/boss/behavior/is_target_far.gd" type="Script" id=11]
+[ext_resource path="res://scripts/enemies/boss/behavior/wander.gd" type="Script" id=12]
+[ext_resource path="res://scripts/enemies/boss/behavior/attack.gd" type="Script" id=13]
+[ext_resource path="res://scripts/enemies/boss/behavior/chase.gd" type="Script" id=14]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=15]
+[ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throw.gd" type="Script" id=16]
+[ext_resource path="res://scripts/enemies/mob/behavior/is_flying.gd" type="Script" id=17]
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 28.0547
+height = 38.3919
+
+[sub_resource type="Animation" id=3]
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 10, 10, 10, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 107.314, 153.528 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 28.5672
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 54.3275
+
+[node name="boss_3" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 5
+physics_material_override = SubResource( 1 )
+gravity_scale = 9.8
+script = ExtResource( 2 )
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 10, 10, 10, 1 )
+position = Vector2( -4.49487, -19.478 )
+scale = Vector2( -0.365912, 0.301115 )
+texture = ExtResource( 1 )
+flip_h = true
+hframes = 5
+
+[node name="animation" type="AnimationPlayer" parent="."]
+anims/perf_damage = SubResource( 3 )
+
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree"]
+script = ExtResource( 8 )
+
+[node name="is_active" type="Node" parent="BehaviorTree/BehaviorSequence"]
+script = ExtResource( 5 )
+
+[node name="BehaviorSelector" type="Node" parent="BehaviorTree/BehaviorSequence"]
+script = ExtResource( 3 )
+
+[node name="is_flying" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 17 )
+
+[node name="BehaviorSequence4" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="throwable" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence4"]
+script = ExtResource( 15 )
+
+[node name="throw" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence4"]
+script = ExtResource( 16 )
+
+[node name="BehaviorSequence2" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="is_hit" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 10 )
+
+[node name="take_dmg" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence2"]
+script = ExtResource( 6 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="is_attacking_close" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 9 )
+
+[node name="BehaviorSelector" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 3 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="is_target_far" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 11 )
+
+[node name="att_close" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence/BehaviorSelector/BehaviorSequence"]
+script = ExtResource( 7 )
+
+[node name="chase" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 14 )
+
+[node name="BehaviorSequence3" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector"]
+script = ExtResource( 8 )
+
+[node name="wander" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence3"]
+script = ExtResource( 12 )
+
+[node name="attack" type="Node" parent="BehaviorTree/BehaviorSequence/BehaviorSelector/BehaviorSequence3"]
+script = ExtResource( 13 )
+
+[node name="activation_trigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="shape" type="CollisionShape2D" parent="activation_trigger"]
+position = Vector2( 696.203, -109.407 )
+shape = SubResource( 4 )
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="projectile_spawn" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="projectile_spawn"]
+position = Vector2( 48.7289, 1.96574 )
+shape = SubResource( 5 )
+
+[node name="physical_att" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 66
+
+[node name="shape" type="CollisionShape2D" parent="physical_att"]
+shape = SubResource( 6 )
+
+[node name="DirectionTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="." to="." method="_on_mob_body_entered"]
+[connection signal="animation_finished" from="animation" to="." method="_on_animation_finished"]
+[connection signal="body_entered" from="activation_trigger" to="." method="_on_activation_trigger_body_entered"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="area_entered" from="physical_att" to="." method="_on_hitbox_parry_entered"]
+[connection signal="body_entered" from="physical_att" to="." method="_on_physical_att_body_entered"]
+[connection signal="timeout" from="DirectionTimer" to="." method="change_wandering_direction"]

@@ -1,6 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
+
 [ext_resource path="res://menu/cyberwizard-logo.png" type="Texture" id=1]
+
+
 [ext_resource path="res://fonts/menu_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/main_menu.gd" type="Script" id=3]
 

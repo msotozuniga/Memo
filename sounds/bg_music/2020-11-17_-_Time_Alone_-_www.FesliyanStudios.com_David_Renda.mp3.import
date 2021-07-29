@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/2020-11-17_-_Time_Alone_-_www.FesliyanStudios.com_David_Renda.mp3-f8a1aa761eaadfce23ae95d03551e735.mp3str"
+
+[deps]
+
+source_file="res://sounds/bg_music/2020-11-17_-_Time_Alone_-_www.FesliyanStudios.com_David_Renda.mp3"
+dest_files=[ "res://.import/2020-11-17_-_Time_Alone_-_www.FesliyanStudios.com_David_Renda.mp3-f8a1aa761eaadfce23ae95d03551e735.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
