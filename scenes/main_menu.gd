@@ -1,9 +1,8 @@
 extends MarginContainer
 
-const first_scene = preload("res://scenes/Intro.tscn")
-
 onready var seleccion_uno = $CenterContainer2/VBoxContainer/CenterContainer2/moptions/CenterContainer/HBoxContainer/moption
 onready var seleccion_dos = $CenterContainer2/VBoxContainer/CenterContainer2/moptions/CenterContainer2/HBoxContainer2/moption
+onready var sound =get_node("/root/BgZone1")
 
 var current_selection = 0;
 
@@ -22,7 +21,8 @@ func _process(delta):
 
 func handle_selection(_current_selection):
 	if _current_selection==0:
-		get_tree().change_scene("res://scenes/Intro.tscn")
+		sound.stop()
+		get_tree().change_scene("res://scenes/Cutscene1.tscn")
 	if _current_selection==1:
 		get_tree().quit()
 	
