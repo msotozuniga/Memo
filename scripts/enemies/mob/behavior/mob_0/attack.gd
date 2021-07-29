@@ -8,9 +8,10 @@ extends "res://addons/godot-behavior-tree-plugin/action.gd"
 
 # Leaf Node
 func tick(tick: Tick) -> int:
-	#print("ATTACKING")
+	if tick.actor.is_attacking:
+		return ERR_BUSY
 	tick.actor.attack()
-	return ERR_BUSY
+	return OK
 
 
 # Declare member variables here. Examples:

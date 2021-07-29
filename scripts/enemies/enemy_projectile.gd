@@ -1,5 +1,6 @@
 extends Area2D
 var speed = 800
+var dmg = 0
 
 func _physics_process(delta):
 	position += transform.x * speed * delta
@@ -7,7 +8,7 @@ func _physics_process(delta):
 
 
 func _on_impact(body):
-	body.receive_damage(10)
+	body.receive_hit(dmg)
 	queue_free()
 
 

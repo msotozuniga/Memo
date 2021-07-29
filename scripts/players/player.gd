@@ -1,17 +1,24 @@
 extends KinematicBody2D
 
-
+var last_checkpoint = Vector2()
 var lineal_vel = Vector2()
 var speed
 var gravity
 var timer
 var fly_mode
 var fly_charge
-var proyectile
+var magics = []
 var max_magic
+var max_hp
 var magic_meter setget set_mana
 var health setget set_health
 var facing_right
+
+var has_fire = true
+var has_electro = true
+var has_ice = true
+
+export var is_parrying: bool
 
 
 onready var runCooldown = false
@@ -23,6 +30,8 @@ func set_mana(value):
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value = magic_meter
 	
 func set_health(value):
+	if value > max_hp:
+		value = max_hp
 	health = value
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	
@@ -33,8 +42,11 @@ func _ready():
 	gravity = 25
 	magic_meter=0
 	max_magic=100
+	max_hp = 100
 	health=100
-	proyectile = preload("res://scenes/fire_projectile.tscn")
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
+	magics.append(preload("res://scenes/p_related/fire_projectile.tscn"))
 	timer = get_node("fly")
 	timer.set_one_shot(true)
 	timer.set_wait_time(1)
@@ -43,18 +55,18 @@ func _ready():
 	facing_right = true
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value=magic_meter
+	checkpoint()
 	
 func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
 	lineal_vel.y += gravity
 	var in_floor= is_on_floor()
-	
 	# Movimiento lateral 
 	var direction_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	lineal_vel.x = lerp(lineal_vel.x,direction_x*speed,0.4)
 	
 	# Carrera
-	if Input.is_action_just_pressed("run") and not runCooldown:
+	if Input.is_action_just_pressed("run") and not runCooldown and has_fire:
 		runCooldown = true
 		runTimer.start()
 		lineal_vel.x=lineal_vel.x*4
@@ -73,7 +85,7 @@ func _physics_process(_delta):
 		parry()
 		
 	# Magic
-	if Input.is_action_just_pressed("magic"):
+	if Input.is_action_just_pressed("magic") and (has_ice or has_fire or has_electro):
 		throwMagic()
 		
 	
@@ -82,7 +94,7 @@ func _physics_process(_delta):
 		fly_charge=true
 	
 	# Activar vuelo
-	if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge:
+	if Input.is_action_just_pressed("jump") and !is_on_floor() and fly_charge and has_electro:
 		timer.start(0.5)
 		gravity = 0
 		lineal_vel.y=0
@@ -113,29 +125,39 @@ func parry():
 	$animation.play("parry_sprite")
 	pass
 	
+func freeze():
+	pass
+	
 func throwMagic():
 	if magic_meter==max_magic:
-		var b = proyectile.instance()
-		b.global_position = self.global_position
-		b.rotation = (get_global_mouse_position()-b.global_position).angle()
+		var b = magics[0].instance()
+		b.transform = self.transform
+		b.rotation = (get_global_mouse_position()-self.global_position).angle()
 		owner.add_child(b)
 		set_mana(0)
 	
 func receive_damage(damage):
 	self.set_health(health-damage)
 	if health <1:
-		queue_free()
+		get_tree().reload_current_scene()
 		
+func receive_hit(damage):
+	if !is_parrying:
+		receive_damage(damage)
+	
+func signal_parry():
+	return
+	
 func increase_magic(amount):
 	var temp=magic_meter+amount
 	if temp>max_magic:
 		temp = max_magic
 	self.set_mana(temp)
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
 
 
 func _on_runTimer_timeout():
 	runCooldown = false
+
+func checkpoint():
+	if !last_checkpoint == Vector2(0,0):
+		set_global_position(last_checkpoint)

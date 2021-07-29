@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://sprites/enemies/mob/kamikaze-idle.png" type="Texture" id=1]
-[ext_resource path="res://scripts/enemies/mob/mob_3.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/mob/m_3.gd" type="Script" id=2]
 [ext_resource path="res://scripts/enemies/mob/behavior/wait.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=5]
@@ -12,115 +12,148 @@
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_1/throwable.gd" type="Script" id=10]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/takeDamage.gd" type="Script" id=11]
 [ext_resource path="res://scripts/enemies/mob/behavior/mob_0/hit.gd" type="Script" id=12]
+[ext_resource path="res://sprites/enemies/mob_perf_dmg.tres" type="Animation" id=13]
+[ext_resource path="res://sprites/enemies/mobs_death.tres" type="Animation" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 36.522
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 371.308
+[sub_resource type="Animation" id=2]
+resource_name = "activate"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 38.7806
+radius = 371.308
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 25.9533
+radius = 38.7806
 
-[sub_resource type="CircleShape2D" id=5]
-radius = 26.4011
+[node name="mob" type="Node2D"]
 
-[node name="mob_3" type="RigidBody2D"]
+[node name="mob_3" type="RigidBody2D" parent="."]
 collision_layer = 4
+collision_mask = 5
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
-[node name="hurtbox" type="CollisionShape2D" parent="."]
-visible = false
+[node name="hurtbox" type="CollisionShape2D" parent="mob_3"]
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -1.09102, 2.74562 )
+[node name="Sprite" type="Sprite" parent="mob_3"]
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
 flip_h = true
 hframes = 6
-frame = 1
 
-[node name="aggro_zone" type="Area2D" parent="."]
-visible = false
+[node name="permanent" type="AnimationPlayer" parent="mob_3/Sprite"]
+anims/activate = SubResource( 2 )
+anims/mob_perf_dmg = ExtResource( 13 )
+anims/mobs_death = ExtResource( 14 )
+
+[node name="aggro_zone" type="Area2D" parent="mob_3"]
 collision_layer = 0
 collision_mask = 2147483650
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="aggro_zone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mob_3/aggro_zone"]
 position = Vector2( -2, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
-[node name="BehaviorTree" type="Node" parent="."]
+[node name="BehaviorTree" type="Node" parent="mob_3"]
 script = ExtResource( 4 )
 
-[node name="BehaviorSelector" type="Node" parent="BehaviorTree"]
+[node name="BehaviorSelector" type="Node" parent="mob_3/BehaviorTree"]
 script = ExtResource( 5 )
 
-[node name="BehaviorSequence3" type="Node" parent="BehaviorTree/BehaviorSelector"]
+[node name="BehaviorSequence3" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector"]
 script = ExtResource( 7 )
 
-[node name="throwable" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence3"]
+[node name="throwable" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence3"]
 script = ExtResource( 10 )
 
-[node name="throw" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence3"]
+[node name="throw" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence3"]
 script = ExtResource( 8 )
 
-[node name="BehaviorSequence2" type="Node" parent="BehaviorTree/BehaviorSelector"]
+[node name="BehaviorSequence2" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector"]
 script = ExtResource( 7 )
 
-[node name="hit" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+[node name="hit" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence2"]
 script = ExtResource( 12 )
 
-[node name="takeDamage" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence2"]
+[node name="takeDamage" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence2"]
 script = ExtResource( 11 )
 
-[node name="BehaviorSequence" type="Node" parent="BehaviorTree/BehaviorSelector"]
+[node name="BehaviorSequence" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector"]
 script = ExtResource( 7 )
 
-[node name="search" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence"]
+[node name="search" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence"]
 script = ExtResource( 9 )
 
-[node name="follow" type="Node" parent="BehaviorTree/BehaviorSelector/BehaviorSequence"]
+[node name="follow" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector/BehaviorSequence"]
 script = ExtResource( 6 )
 
-[node name="wait" type="Node" parent="BehaviorTree/BehaviorSelector"]
+[node name="wait" type="Node" parent="mob_3/BehaviorTree/BehaviorSelector"]
 script = ExtResource( 3 )
 
-[node name="hitbox" type="Area2D" parent="."]
-visible = false
+[node name="hitbox" type="Area2D" parent="mob_3"]
 collision_layer = 0
 collision_mask = 66
 
-[node name="shape" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource( 3 )
+[node name="shape" type="CollisionShape2D" parent="mob_3/hitbox"]
+shape = SubResource( 4 )
 
-[node name="ThrowTimer" type="Timer" parent="."]
+[node name="ThrowTimer" type="Timer" parent="mob_3"]
 wait_time = 0.3
 
-[node name="pro_box" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 4
-
-[node name="shape" type="CollisionShape2D" parent="pro_box"]
-shape = SubResource( 4 )
-disabled = true
-
-[node name="pro_box_wall" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-
-[node name="shape" type="CollisionShape2D" parent="pro_box_wall"]
-shape = SubResource( 5 )
-disabled = true
-
-[connection signal="body_entered" from="aggro_zone" to="." method="_on_aggro_zone_body_entered"]
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="timeout" from="ThrowTimer" to="." method="slowTimeThrow"]
-[connection signal="body_entered" from="pro_box" to="." method="_on_pro_box_body_entered"]
-[connection signal="body_entered" from="pro_box_wall" to="." method="_on_pro_box_wall_body_entered"]
+[connection signal="body_entered" from="mob_3" to="mob_3" method="_on_mob_body_entered"]
+[connection signal="body_entered" from="mob_3/aggro_zone" to="mob_3" method="_on_aggro_zone_body_entered"]
+[connection signal="area_entered" from="mob_3/hitbox" to="mob_3" method="_on_hitbox_parry_entered"]
+[connection signal="body_entered" from="mob_3/hitbox" to="mob_3" method="_on_hitbox_player_entered"]
+[connection signal="timeout" from="mob_3/ThrowTimer" to="mob_3" method="slowTimeThrow"]
