@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-
+var last_checkpoint = Vector2()
 var lineal_vel = Vector2()
 var speed
 var gravity
@@ -60,6 +60,7 @@ func _ready():
 	facing_right = true
 	$CanvasLayer/VBoxContainer/HBoxContainer/pbarvida.value = health
 	$CanvasLayer/VBoxContainer/HBoxContainer2/pbmana.value=magic_meter
+	checkpoint()
 	
 func _physics_process(_delta):
 	lineal_vel = move_and_slide(lineal_vel,Vector2.UP)
@@ -157,7 +158,7 @@ func throwMagic():
 func receive_damage(damage):
 	self.set_health(health-damage)
 	if health <1:
-		queue_free()
+		get_tree().reload_current_scene()
 		
 func receive_hit(damage):
 	if !is_parrying:
@@ -175,3 +176,7 @@ func increase_magic(amount):
 
 func _on_runTimer_timeout():
 	runCooldown = false
+
+func checkpoint():
+	if !last_checkpoint == Vector2(0,0):
+		set_global_position(last_checkpoint)

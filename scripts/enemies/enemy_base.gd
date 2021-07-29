@@ -143,7 +143,7 @@ func perform_damage():
 
 # Base configurations and functions
 func _ready():
-	blackboard = get_tree().current_scene.get_child(0)
+	blackboard = get_tree().current_scene.get_node("blackboard")
 	var enemies_number = blackboard.get("enemies")
 	if enemies_number== null:
 		blackboard.set("enemies",1)
