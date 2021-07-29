@@ -16,7 +16,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 54.5785, 82.205 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "power_up"
 length = 0.4
 tracks/0/type = "value"
@@ -68,13 +68,13 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 1549.69
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 50, 50 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 50, 50 )
 
 [node name="mob_6" type="Node2D"]
@@ -100,7 +100,7 @@ hframes = 4
 [node name="permanent" type="AnimationPlayer" parent="body/Sprite"]
 anims/mob_perf_dmg = ExtResource( 11 )
 anims/mobs_death = ExtResource( 12 )
-anims/power_up = SubResource( 5 )
+anims/power_up = SubResource( 2 )
 
 [node name="aggro_zone" type="Area2D" parent="body"]
 collision_layer = 0
@@ -108,7 +108,7 @@ collision_mask = 2147483650
 
 [node name="shape" type="CollisionShape2D" parent="body/aggro_zone"]
 position = Vector2( 1.37842, 4.75677 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="BehaviorTree" type="Node" parent="body"]
 script = ExtResource( 4 )
@@ -143,13 +143,13 @@ script = ExtResource( 7 )
 
 [node name="shape" type="CollisionShape2D" parent="body/spawner_l"]
 position = Vector2( -108.065, -2.11893 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="spawner_r" type="Area2D" parent="body"]
 
 [node name="shape" type="CollisionShape2D" parent="body/spawner_r"]
 position = Vector2( 108.065, 2.11893 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [connection signal="body_entered" from="body/aggro_zone" to="body" method="_on_aggro_zone_body_entered"]
 [connection signal="body_exited" from="body/aggro_zone" to="body" method="_on_aggro_zone_body_exited"]

@@ -50,7 +50,6 @@ func attack():
 	$attack.play("a_pattern")
 	
 func receive_damage(dmg, mode):
-	print(hp)
 	if !has_guard_on:
 		.receive_damage(dmg,mode)
 	

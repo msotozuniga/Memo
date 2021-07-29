@@ -12,7 +12,7 @@ func _ready():
 	hp_max = 10
 	parry_counter = 1
 	parry_max = 1
-	type = types_vars.ICE
+	type = types_vars.FIRE
 	dmg = 10
 	
 	is_facing_right = -1

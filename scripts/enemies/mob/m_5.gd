@@ -8,8 +8,8 @@ onready var att_speed = 1500
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hp = 60
-	hp_max = 60
+	hp = 50
+	hp_max = 50
 	parry_counter = 3
 	parry_max = 3
 	type = types_vars.FIRE
